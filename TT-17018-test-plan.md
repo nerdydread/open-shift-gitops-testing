@@ -6,11 +6,11 @@
 **Code:** `TykTechnologies/tyk-charts` PR #485 — **merged to `main` 27 Jul 2026** as `61e5cf1` (66 files, +4,530/−182). PR #467 is closed/superseded — do not review that diff.
 **Version:** 2 (10 Aug 2026) — adds environment decision and step-by-step execution detail
 
-> ### ⚠️ Scope amendments — read `workstreams/` for the operative plan
+> ### ⚠️ Scope amendments — the owner packets are the operative plan
 >
 > This document remains the authority on **what and why**. Execution scope has since been amended in
-> [`workstreams/`](workstreams/README.md), which is what the two owners actually run. Four changes
-> matter if you're reading this document directly:
+> [`README.md`](README.md) and the two owner packets alongside it, which is what actually gets run.
+> Four changes matter if you're reading this document directly:
 >
 > 1. **TC-12 is removed.** Nothing is delegated to the customer. The headline acceptance criterion is
 >    proven directly by Owner 2 in TC-04 Step 11; multi-AZ ROSA is documented residual risk.

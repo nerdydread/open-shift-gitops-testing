@@ -4,7 +4,7 @@
 **Test cases:** TC-04 Steps 1–3, TC-09, TC-10, TC-01, TC-02, TC-06 Steps 1–5, TC-11
 
 Read [`00-shared-setup.md`](00-shared-setup.md) first (~15 min). Master plan for background:
-[`../TT-17018-test-plan.md`](../TT-17018-test-plan.md).
+[`TT-17018-test-plan.md`](TT-17018-test-plan.md).
 
 ---
 

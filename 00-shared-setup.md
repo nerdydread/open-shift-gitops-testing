@@ -3,7 +3,7 @@
 ~15 minutes. Then work from your own packet:
 [`owner-1-kind-and-render.md`](owner-1-kind-and-render.md) ·
 [`owner-2-openshift.md`](owner-2-openshift.md).
-Source: [`../TT-17018-test-plan.md`](../TT-17018-test-plan.md) §3.
+Source: [`TT-17018-test-plan.md`](TT-17018-test-plan.md) §3.
 
 ---
 
