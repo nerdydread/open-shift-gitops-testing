@@ -1,6 +1,6 @@
 # TT-17018 — QA workstreams (2 owners)
 
-Companion to [`../TT-17018-test-plan.md`](../TT-17018-test-plan.md). That document is the authority
+Companion to `TT-17018-test-plan.md`. That document is the authority
 on *what* and *why*. This directory splits it into **two packets** that two people can own and run
 without blocking each other.
 
