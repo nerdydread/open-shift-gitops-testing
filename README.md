@@ -7,7 +7,7 @@ without blocking each other.
 | File | For |
 |---|---|
 | [`00-shared-setup.md`](00-shared-setup.md) | Both owners. ~15 min read. |
-| [`owner-1-kind-and-render.md`](owner-1-kind-and-render.md) | Owner 1 — kind & render. ~5 days. |
+| [`owner-1-kind-and-render.md`](owner-1-kind-and-render.md) | Owner 1 — kind & render. ~4 days. |
 | [`owner-2-openshift.md`](owner-2-openshift.md) | Owner 2 — OpenShift. ~5 days. |
 
 Each owner file is self-contained: setup steps, every command, and per step a **Validates / Pass /
@@ -24,13 +24,13 @@ duplicated setup tax.
 
 | | **Owner 1 — kind & render** | **Owner 2 — OpenShift** |
 |---|---|---|
-| **Test cases** | TC-04 Steps 1–3, TC-09, TC-10, TC-01, TC-02, TC-06 Steps 1–5, TC-11, TC-12 | TC-03, TC-04 Steps 4–10, TC-05, TC-07, TC-08, TC-06 Step 6 |
+| **Test cases** | TC-04 Steps 1–3, TC-09, TC-10, TC-01, TC-02, TC-06 Steps 1–5, TC-11 | TC-03, TC-04 Steps 4–**11**, TC-05, TC-07, TC-08, TC-06 Step 6 |
 | **Clusters** | kind 1.26 + 1.30, local | Dev Sandbox + one admin-capable cluster |
 | **Effort** | ~4 days | ~5 days |
 | **P0 work** | TC-01, TC-11 (+ TC-02 as a documented outcome) | TC-03, TC-04 |
 | **Owns** | the upgrade risk — the largest untested surface on the ticket | gaps #2, #3, #4, #6 — everything CI never installed |
 | **Skills** | Helm, kind, `crane`, `yq`, helm-unittest | OpenShift/`oc`, SCC, ArgoCD, private registry |
-| **Also owns** | TC-12 customer liaison, the 5.4.0 release note | the Redis-on-OpenShift scope question (§8 Q2) |
+| **Also owns** | the 5.4.0 release note | the headline AC (TC-04 Step 11) and the Redis-on-OpenShift scope question (§8 Q2) |
 
 **Total ≈ 9 person-days over ~5 calendar days**, after the scope trims below. The master plan's "4–5 working days for one QA
 engineer" (§5) excludes environment setup and assumes every install works first time. Treat it as
@@ -72,13 +72,13 @@ Soft handoffs, useful but not blocking:
 
 | Day | Owner 1 — kind & render | Owner 2 — OpenShift |
 |---|---|---|
-| **0** | Shared actions below (30 min, together) | Shared actions + **request private registry access** |
-| **1 AM** | Setup · **TC-04 Steps 1–3 → hand to Owner 2** · send TC-12 | Kick off the SNO install · provision Sandbox |
+| **0** | Shared actions below (30 min, together) | Shared actions + request the Partner Lab |
+| **1 AM** | Setup · **TC-04 Steps 1–3 → hand to Owner 2** | Kick off the SNO install · provision Sandbox |
 | **1 PM** | TC-09 (incl. anti-vacuity check), TC-10 | TC-05 Steps 1–5 (renders, no cluster) · **TC-03 on Sandbox** |
 | **2** | TC-01 on kind 1.26 — `tyk-oss`, `tyk-data-plane` | Redis/PostgreSQL on OpenShift (S6) · TC-04 Steps 4–9 on `tyk-control-plane` |
-| **3** | TC-01 on kind 1.30 + `tyk-stack` · TC-02 | TC-04 Step 10 (`tyk-stack`, `tyk-data-plane`) · TC-05 Steps 6–7 (real ArgoCD) |
+| **3** | TC-01 on kind 1.30 + `tyk-stack` · TC-02 | TC-04 Steps 10–11 (`tyk-stack`, `tyk-data-plane`, **headline AC**) · TC-05 Steps 6–7 (real ArgoCD) |
 | **4** | TC-11 on kind 1.26 and 1.30 · TC-06 Steps 1–5 | TC-07 (bootstrap executing, self-hosted registry) |
-| **5** | Write-up · defects · release note · chase TC-12 | TC-08 · TC-06 Step 6 · write-up · defects |
+| **5** | Write-up · defects · release note | TC-08 · TC-06 Step 6 · write-up · defects |
 
 Owner 2's day 1 is deliberately cluster-free work — the cluster install (~1 hour unattended) and the
 Sandbox provisioning run in the background while the TC-05 renders and TC-03 get done.
@@ -105,9 +105,6 @@ Shared inputs. Without them, several tests produce results that can't be aggrega
 - [ ] **Resolve licences.** Dashboard licence for TC-01's `tyk-stack` leg, TC-02, TC-04, TC-05,
       TC-07, TC-08; MDCB for TC-06. Check how many **concurrent** dashboard installs it allows —
       both owners may want one on days 2–3. **This is the only genuine long-lead item.**
-- [ ] **Send TC-12 on day 1.** It's elapsed-time-bound and the last customer round-trip took roughly
-      a month (asked June, replied 20 July). Set the response deadline that triggers the ROSA
-      contingency, and note it on the ticket. This is §8 Q5.
 - [ ] **Agree the P0 rule now.** Master plan §8 Q3: the change is already on `main`, so if QA finds
       a P0 — revert, or fix forward before the 5.4.0 cut? Decide before you're under pressure on
       day 4. Either owner hitting a P0 escalates the **same day**; do not batch to the write-up.
@@ -132,7 +129,7 @@ row is green **and** its owner has attached evidence against the day-0 SHA.
 | 9 | TC-09 green on merged `main`, **with the anti-vacuity revert check done** | 1 | | ☐ |
 | 10 | TC-10 zero field leaks under **server-side** dry-run | 1 | | ☐ |
 | 11 | TC-11 green on k8s **1.26 and 1.30** (the ends; middle versions only if they disagree) | 1 | ● | ☐ |
-| 12 | TC-12 customer confirms on the merged state; remaining patch list agreed in writing | 1 | | ☐ |
+| 12 | **Headline AC proven by QA** — four umbrellas installed on OpenShift with zero Kustomize patches on Tyk components, and the customer's three known patch categories confirmed unnecessary *(replaces TC-12)* | 2 | | ☐ |
 | 13 | Upgrade release note reviewed and published in the 5.4.0 changelog | 1 | | ☐ |
 | 14 | OpenShift docs cover the `enabled: false` opt-out (and why `{}` doesn't work), the Redis/PostgreSQL caveat, and the per-component image-tag boundary | 1 + 2 | | ☐ |
 
@@ -154,6 +151,32 @@ Rows 4, 6 and 14 are the shared ones — neither owner can close them alone.
 > the release, not the evidence. Do them after the testing, and don't let them displace it.
 
 ---
+
+## Residual risk, accepted knowingly
+
+**Nothing in this pass depends on the customer.** The master plan made TC-12 a sign-off gate: send
+the merged chart to the customer, have them redeploy on ROSA across three regions, and report how
+many of their 24 Kustomize patches remain. That is **removed**. It put a release gate on a third
+party's response time — the last round-trip took roughly a month — and it asked someone outside the
+team to produce the evidence for the ticket's *headline* acceptance criterion.
+
+**The criterion is still validated, by Owner 2, directly.** TC-04 Step 11 installs all four umbrellas
+on OpenShift with zero Kustomize patches and checks each of the customer's three known patch
+categories — the `fsGroup` patch, the init-container UID patch, and the `op: remove` workaround for
+null labels/annotations — against the live install. That is better evidence than a patch count in an
+email, because it arrives with commands and output.
+
+**What is genuinely no longer covered, and should be stated at sign-off:**
+
+| Not covered | Assessment |
+|---|---|
+| **Real multi-AZ ROSA** | Both owners are on single-node clusters. Modest exposure: everything in scope — SCC admission, annotation quoting, bootstrap ordering, securityContext omission — is **node-count-independent**. There is no mechanism by which three AZs behave differently from one for these changes. |
+| **The customer's specific ArgoCD + Kustomize pipeline** | TC-05 proves the chart works through a real ArgoCD instance with sync waves and hooks disabled. It cannot prove anything about the customer's own overlay structure. This is the larger of the two gaps. |
+| **The 24 → N patch-count delta** | We can prove Tyk components need **zero** patches. We cannot produce the customer's arithmetic, because we don't have their overlays. The AC is answered; the specific number isn't. |
+
+Both are **acceptance decisions, not QA findings** — the review should accept them explicitly rather
+than have someone discover the omission later. If the customer volunteers a report during the week,
+treat it as a bonus data point, never as a gate.
 
 ## Already found: three defects in the master plan's own commands
 
@@ -213,7 +236,7 @@ Master plan §8, with who brings the evidence:
 | 2 | Scope of "no Kustomize patches" — Tyk components only? Redis/PostgreSQL will still need patches. Needs stating in the AC and docs, and agreeing with the customer. | Owner 2, S6 |
 | 3 | The change is already on `main`. If QA finds a P0 — revert, or fix forward before the 5.4.0 cut? | either |
 | 4 | `main` reads chart version `5.3.0` while the fix version is Charts 5.4.0. Confirm the release-prep bump is tracked separately. | Owner 1 |
-| 5 | TC-12 ownership and the deadline that triggers the ROSA contingency. | Owner 1 |
+| 5 | ~~TC-12 ownership and deadline~~ — **moot, TC-12 is removed.** Replaced by: does the review accept single-node OpenShift evidence for the headline AC, with multi-AZ ROSA as documented residual risk? | Owner 2 |
 | 6 | Gap #9 — expose `managerPodSecurityContext` in the umbrella values? Remove or document the dead `podSecurityContext` key? | Owner 1 (verdict) + Owner 2 (impact) |
 | 7 | **New** — confirm the scope trims: no PR for row 4, self-hosted registry for row 7, TC-11 at the matrix ends, rows 13–14 as release deliverables. Each is listed under "Deliberately not doing" in the owner packets. | either |
 

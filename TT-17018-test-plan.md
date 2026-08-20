@@ -6,6 +6,23 @@
 **Code:** `TykTechnologies/tyk-charts` PR #485 — **merged to `main` 27 Jul 2026** as `61e5cf1` (66 files, +4,530/−182). PR #467 is closed/superseded — do not review that diff.
 **Version:** 2 (10 Aug 2026) — adds environment decision and step-by-step execution detail
 
+> ### ⚠️ Scope amendments — read `workstreams/` for the operative plan
+>
+> This document remains the authority on **what and why**. Execution scope has since been amended in
+> [`workstreams/`](workstreams/README.md), which is what the two owners actually run. Four changes
+> matter if you're reading this document directly:
+>
+> 1. **TC-12 is removed.** Nothing is delegated to the customer. The headline acceptance criterion is
+>    proven directly by Owner 2 in TC-04 Step 11; multi-AZ ROSA is documented residual risk.
+> 2. **Environment changed.** CRC on a laptop isn't viable (no host has the RAM) and CRC on a cloud
+>    VM is unsupported — `crc.dev` states it doesn't support nested virtualisation. Single Node
+>    OpenShift on one cloud VM, or the free Red Hat Partner Lab, replaces it (§3 is superseded).
+> 3. **No PR is required** to validate anything. The `ci/no-securitycontext-values.yaml` files are
+>    test inputs; §6 row 4's "merged" requirement is moved to the §7 follow-ups.
+> 4. **Two defects in this document's own commands are fixed there** — TC-02 Step 1's image loop
+>    names two repositories that don't exist and targets the wrong registry for two more. The gateway
+>    tag was checked: `v5.13.1` → `USER 65532`, so the ticket's central premise holds.
+
 ---
 
 ## 1. Why this plan exists

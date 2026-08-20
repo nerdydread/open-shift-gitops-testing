@@ -1,7 +1,7 @@
 # Owner 1 — kind & render
 
 **Effort:** ~4 days · **Clusters:** kind (`v1.26.13` and `v1.30.0`) + local only · **You never touch OpenShift.**
-**Test cases:** TC-04 Steps 1–3, TC-09, TC-10, TC-01, TC-02, TC-06 Steps 1–5, TC-11, TC-12
+**Test cases:** TC-04 Steps 1–3, TC-09, TC-10, TC-01, TC-02, TC-06 Steps 1–5, TC-11
 
 Read [`00-shared-setup.md`](00-shared-setup.md) first (~15 min). Master plan for background:
 [`../TT-17018-test-plan.md`](../TT-17018-test-plan.md).
@@ -31,7 +31,7 @@ OpenShift work kept breaking the 99% of users who aren't on OpenShift.
 | 9 | TC-09 green **with the anti-vacuity revert check** | ✅ sole |
 | 10 | TC-10 zero field leaks under server-side dry-run | ✅ sole |
 | 11 | TC-11 green on k8s 1.26 and 1.30 | ✅ sole |
-| 12 | TC-12 customer confirms; patch list agreed in writing | ✅ sole |
+| 12 | ~~TC-12 customer confirmation~~ — **removed**; replaced by Owner 2's TC-04 Step 11 | n/a |
 | 13 | Upgrade release note in the 5.4.0 changelog | ✅ sole — **release deliverable, not a test** |
 | 14 | OpenShift docs complete | shared — **release deliverable, not a test**; you supply the tag boundary from TC-02 Step 1 |
 
@@ -256,28 +256,28 @@ anyway: CI never runs `ct install` (only `ct lint --all`), and the opt-out insta
 `./tyk-oss/ci/no-securitycontext-values.yaml` against `tyk-oss` alone — so extra files add no
 install coverage without also editing `run-tests.yaml`. Both belong in the §7 follow-ups.
 
-### TC-12 Step 1 · Send the customer request — day 1, hard
+### TC-12 is removed — nothing is delegated to the customer
 
-**Validates:** that the merged state works on the environment that motivated the ticket. The
-customer tested `c99bc03`, which **predates** the final round of fixes — the null keys on
-SA/Role/RoleBinding, the `enabled` leak on non-gateway components, and annotation quoting. Their
-"works great" report **does not cover what shipped**.
+The master plan made TC-12 a sign-off gate: send the merged chart to the customer, have them deploy
+on ROSA and report how many of their 24 Kustomize patches remain. **That is no longer part of this
+pass.** The two owners validate everything.
 
-Send them the merged `main` chart, pinned to the SHA from S1, and ask them to deploy on ROSA +
-ArgoCD across their three regions. Ask exactly three questions:
+Two reasons it had to go. It put a release gate on a third party's response time — the last
+round-trip took roughly a month — and it asked someone outside the team to produce the evidence for
+the ticket's *headline* acceptance criterion. Neither is acceptable for a gate.
 
-- How many of the original **24 Kustomize patches** remain?
-- Is the `op: remove` workaround patch for null labels/annotations now removable?
-- Are the `fsGroup` and init-UID patches gone with the opt-out?
+**The criterion still gets validated — Owner 2 does it directly.** The customer's patch categories
+are recorded on the ticket (the `fsGroup` patch, the init-container UID patch, and the `op: remove`
+workaround for null labels/annotations), so Owner 2 checks each one against their own install in
+**TC-04 Step 11**. That is stronger evidence than a patch count in an email, because it comes with
+commands and output.
 
-**Pass:** the remaining patch list contains **only non-Tyk components** (Redis, PostgreSQL), and
-the customer explicitly agrees in writing that this is acceptable.
-**Evidence:** a patch count, not a sentiment. "Works great" is not a pass signal.
+**What this genuinely costs:** no coverage on real multi-AZ ROSA. See the residual-risk note in
+[`README.md`](README.md#residual-risk-accepted-knowingly) — it's a real reduction, it's modest for
+the changes in scope, and it's stated at sign-off rather than discovered later.
 
-**Set a response deadline and note it on the ticket today.** The last round-trip took roughly a
-month (asked June, replied 20 July). If the deadline passes without a reply, trigger the ROSA
-contingency (master plan §3.1) rather than letting the release drift. This is §8 Q5 — who owns the
-date. It's you; pick it now.
+Nothing for you to do here. If the customer volunteers a report during the week, treat it as a bonus
+data point, not a gate.
 
 ---
 
@@ -758,12 +758,12 @@ and missing the other is the easy mistake.
       [`00-shared-setup.md`](00-shared-setup.md#reporting-results)
 - [ ] File defects — prefix `[TT-17018 QA]`, with explicit **blocks 5.4.0: yes/no**
 - [ ] Attach the three values files to TT-17018 (no PR needed)
-- [ ] Chase TC-12; if the deadline has passed, trigger the ROSA contingency
 - [ ] Send Owner 2 the image-USER table for the docs (§6 row 14)
 - [ ] Draft the upgrade release note for the 5.4.0 changelog (§6 row 13), using TC-02 Steps 1 and 4 —
       **after** the testing is done
 - [ ] Bring to the Thursday review: §8 Q1 (TC-02 guard vs release note), Q4 (chart version reads
-      `5.3.0` vs fix version 5.4.0), Q5 (TC-12 deadline), and the gap #9 verdict for Q6
+      `5.3.0` vs fix version 5.4.0), and the gap #9 verdict for Q6. **Q5 is moot** — TC-12 is
+      removed, so there is no customer deadline to own.
 
 Any **P0** — TC-01 Step 3 failing on the default path, or TC-11 Steps 1–2 failing — escalates the
 **same day** and forces §8 Q3: revert `main`, or fix forward before the 5.4.0 cut.

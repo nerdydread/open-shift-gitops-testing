@@ -217,6 +217,6 @@ independent reviews plus a live `restricted-v2` admission probe.
 | Null `annotations`/`labels` under `disableHelmHooks` (the customer's reported bug) | Covered by unit tests — **re-run, don't rebuild** |
 | `securityContext.enabled` field leak; annotation/label quoting | Covered — **re-run** (TC-09, TC-10) |
 | Render-level correctness of every new value key (189/189 unit tests, 11/11 lint) | **Re-run against current `main`** and re-baseline the number |
-| Real ROSA + ArgoCD deployment | **Re-confirm on merged `main`** — the customer tested `c99bc03`, which predates the final fixes (TC-12) |
+| Real ROSA + ArgoCD deployment | **Not re-confirmed, and not delegated.** The customer tested `c99bc03`, which predates the final fixes, so their report doesn't cover what shipped — but TC-12 is removed and nothing is asked of them. Owner 2 proves the acceptance criterion directly in TC-04 Step 11; multi-AZ ROSA is accepted residual risk (see README) |
 
 The effort belongs in the nine documented gaps, which is what both packets are built around.

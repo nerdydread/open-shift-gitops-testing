@@ -1,7 +1,7 @@
 # Owner 2 — OpenShift
 
 **Effort:** ~5 days · **Clusters:** Red Hat Developer Sandbox + one admin-capable cluster (S4) · **You never touch kind.**
-**Test cases:** TC-03, TC-04 Steps 4–10, TC-05, TC-06 Step 6, TC-07, TC-08
+**Test cases:** TC-03, TC-04 Steps 4–11, TC-05, TC-06 Step 6, TC-07, TC-08
 
 Read [`00-shared-setup.md`](00-shared-setup.md) first (~15 min). Master plan for background:
 [`../TT-17018-test-plan.md`](../TT-17018-test-plan.md).
@@ -49,6 +49,7 @@ the evidence independently. Everything else is new ground.
 | 6 | TC-06 live check | ✅ shared — Owner 1 owns the render steps and the upgrade regression |
 | 7 | TC-07 bootstrap verified **executing**, incl. an auth-requiring registry with a negative control | ✅ sole — self-hosted registry is fine (S7) |
 | 8 | TC-08 dev portal running with all three new config paths | ✅ sole |
+| 12 | **Replaces TC-12** — headline AC proven directly: four umbrellas installed with zero Kustomize patches on Tyk components | ✅ sole (TC-04 Step 11) |
 | 14 | OpenShift docs cover the opt-out, the Redis caveat, the tag boundary | ✅ shared — Owner 1 supplies the tag boundary |
 
 ### Entry criteria — you are blocked on Owner 1 for two things
@@ -559,6 +560,37 @@ which has the pre-existing values file and is already covered by the
 coverage of any kind), then `tyk-stack` and `tyk-data-plane` where the install path is already
 covered by `integration-tests` and what's new is the **opt-out** path, then `tyk-oss` last if time
 allows. If you run out of week, dropping `tyk-oss` costs least.
+
+**Step 11 — Prove the headline acceptance criterion yourself. This replaces TC-12.**
+
+The master plan delegated this to the customer: send them the chart, ask how many of their 24
+Kustomize patches remain. **That's removed** — nothing in this pass depends on the customer. You
+produce the evidence, and it's better evidence, because it comes with commands and output rather
+than a number in an email.
+
+The AC is *"deploys on OpenShift without Kustomize patches."* The customer's patch categories are on
+the ticket, so check each one against the install you just did:
+
+| Patch the customer needed | Still needed? | How you know |
+|---|---|---|
+| `fsGroup` patch (removing the pinned `fsGroup: 2000`) | | Step 5 — every pod shows an **SCC-injected** `fsGroup` inside the namespace range, with none pinned by the chart |
+| Init-container UID patch (removing `runAsUser: 65532`) | | Step 2's render shows no `runAsUser` anywhere; Step 4 admitted the pods |
+| `op: remove` workaround for null `labels`/`annotations` | | Step 8 — zero null keys on **live API objects**, and TC-05 Step 1 on the render |
+| Anything else you needed to make it install | | Your own notes — **this is the important row** |
+
+**Validates:** the ticket's headline AC, measured rather than asserted, and owned by QA.
+**Pass:** all four umbrellas installed with **zero Kustomize patches against Tyk components**, and
+the first three rows above answered "no longer needed" with evidence.
+**Evidence:** the completed table, plus an explicit list of everything you *did* have to patch or
+work around. Expect that list to contain **Redis and PostgreSQL** (S6) and nothing else — that's
+gap #8, and it feeds §8 Q2.
+**Fail:** any Tyk component needing a Kustomize patch to install. That's the AC not being met, and
+it's a P0.
+
+⚠️ **State the limit of this evidence.** You are on a single-node cluster, so this proves the chart
+needs no patches on OpenShift — it does **not** prove anything about the customer's multi-AZ ROSA or
+their specific ArgoCD/Kustomize pipeline. Say so in your write-up; see the residual-risk note in
+[`README.md`](README.md#residual-risk-accepted-knowingly).
 **Validates:** gap #2 — two of the four umbrellas have **never been installed anywhere**, and
 control-plane + data-plane is the customer's actual topology.
 **Pass:** every Step 4–9 criterion holds for each umbrella independently. §6 row 4 names **all
@@ -756,8 +788,8 @@ gateway connects.
 - [ ] **State the single-node delta.** If you ran on SNO or local CRC, the cluster had one node, so
       nothing here covers multi-AZ or multi-node scheduling. It doesn't affect TC-04's installs or
       TC-05's sync-wave ordering, and CRC wouldn't have covered it either — but record it as a known
-      limit of the evidence rather than letting someone assume it was tested. The customer's ROSA
-      spans three regions; TC-12 is what covers that, not you.
+      limit of the evidence rather than letting someone assume it was tested. **Nothing else covers
+      it** — TC-12 was removed, so multi-AZ ROSA is an accepted residual risk, not a delegated task.
 
 Any **P0** — TC-03 not reproducing, or a TC-04 umbrella failing to install — escalates the **same
 day** and forces §8 Q3: revert `main`, or fix forward before the 5.4.0 cut.
@@ -774,7 +806,8 @@ day 5. All of these appear in the master plan; none of them validate the change.
 | **Corporate private-registry access** | TC-07 Step 2 needs *a* registry requiring auth, not a specific one. Self-host `registry:2` with htpasswd (S7) and the negative control is just as real. |
 | **A cloud-registry access request as a day-0 blocker** | Removed entirely by the above. |
 | **Building an OLM catalogue if the GitOps operator is unavailable** | Fall back to community ArgoCD manifests and record the delta (S4 Step 4). TC-05 tests sync-wave ordering and hook-free bootstrap, not the operator's packaging. |
-| **Multi-AZ / multi-node coverage** | Your cluster is single-node. TC-12 covers the customer's three-region ROSA; note the delta and move on. |
+| **Multi-AZ / multi-node coverage** | Your cluster is single-node, and TC-12 is removed — so this is an **accepted residual risk**, recorded at sign-off. Modest for the changes in scope: SCC, annotations and bootstrap are all node-count-independent. |
+| **Asking the customer to validate anything** | TC-12 is removed entirely. Its acceptance criterion is now proven directly in TC-04 Step 11. |
 
 ## The one follow-up worth arguing for afterwards
 
