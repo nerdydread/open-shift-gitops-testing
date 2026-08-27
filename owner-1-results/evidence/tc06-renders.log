@@ -1,0 +1,38 @@
+=== TC-06 Step 1: literal connectionString
+          - name: TYK_GW_SLAVEOPTIONS_CONNECTIONSTRING
+            
+            value: "tcp://mdcb:9091"
+            
+          - name: TYK_GW_SLAVEOPTIONS_USESSL
+=== TC-06 Step 2: connectionStringSecretName, default key
+          - name: TYK_GW_SLAVEOPTIONS_CONNECTIONSTRING
+            
+            valueFrom:
+              secretKeyRef:
+                name: mdcb-conn
+                key: connectionString
+=== TC-06 Step 3: custom key
+          - name: TYK_GW_SLAVEOPTIONS_CONNECTIONSTRING
+            
+            valueFrom:
+              secretKeyRef:
+                name: mdcb-conn
+                key: myKey
+=== TC-06 Step 5: pump template parity
+95:          {{- if .Values.global.remoteControlPlane.connectionStringSecretName }}
+96-            valueFrom:
+97-              secretKeyRef:
+98:                name: {{ .Values.global.remoteControlPlane.connectionStringSecretName }}
+99-                key: {{ .Values.global.remoteControlPlane.connectionStringSecretKey | default "connectionString" }}
+100-          {{- else }}
+101-            value: "{{ .Values.global.remoteControlPlane.connectionString }}"
+102-          {{- end }}
+103-          
+104-          - name: TYK_PMP_PUMPS_HYBRID_META_RPCKEY
+=== TC-06 extra: secret name AND literal both set (invalid combo?)
+          - name: TYK_GW_SLAVEOPTIONS_CONNECTIONSTRING
+            
+            valueFrom:
+              secretKeyRef:
+                name: mdcb-conn
+                key: connectionString

@@ -1,0 +1,97 @@
+
+########## create kind v1.26.13 ##########
+
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+Switched to context "kind-tyk-qa-126b".
+Server Version: v1.26.13
+
+########## redis + postgres ##########
+redis=0
+postgres=0
+
+########## TC-01 control-plane: install released 5.3.0 (ns tyk-cp) ##########
+install=0
+NAME                                              READY   STATUS    RESTARTS   AGE
+dashboard-tyk-cp-tyk-dashboard-6b8dc6df48-2628s   1/1     Running   0          62s
+gateway-tyk-cp-tyk-gateway-56d955c9-fv5f6         1/1     Running   0          62s
+mdcb-tyk-cp-tyk-mdcb-77856b97c7-bl5cp             1/1     Running   0          62s
+
+########## state: create API via dashboard ##########
+create API -> HTTP 200
+
+########## TC-01 data-plane vs real MDCB: install released 5.3.0 (ns tyk-dp) ##########
+install=0
+time="2026-08-26T21:53:40Z" level=info msg="Detected 1 APIs" prefix=main
+DP 5.3.0 proxies CP API: /cp126/get -> HTTP 200
+
+########## TC-01 CP plain upgrade to main ##########
+STATUS: deployed
+REVISION: 2
+deployment "gateway-tyk-cp-tyk-gateway" successfully rolled out
+deployment "dashboard-tyk-cp-tyk-dashboard" successfully rolled out
+deployment "mdcb-tyk-cp-tyk-mdcb" successfully rolled out
+NAME                                             READY   STATUS        RESTARTS   AGE
+dashboard-tyk-cp-tyk-dashboard-b4dcb8f64-4s2kr   1/1     Running       0          25s
+gateway-tyk-cp-tyk-gateway-56d955c9-fv5f6        1/1     Terminating   0          99s
+gateway-tyk-cp-tyk-gateway-7684f5876c-mf7l4      1/1     Running       0          25s
+mdcb-tyk-cp-tyk-mdcb-86b464c76f-5shc5            1/1     Running       0          25s
+dashboard-tyk-cp-tyk-dashboard-b4dcb8f64-4s2kr: ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+gateway-tyk-cp-tyk-gateway-56d955c9-fv5f6: ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+gateway-tyk-cp-tyk-gateway-7684f5876c-mf7l4: ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+mdcb-tyk-cp-tyk-mdcb-86b464c76f-5shc5: ctrSC=
+
+########## TC-01 DP plain upgrade to main (real MDCB) ##########
+STATUS: deployed
+REVISION: 2
+deployment "gateway-tyk-dp-tyk-gateway" successfully rolled out
+DP main proxies: /cp126/get -> HTTP 200
+
+########## TC-01 DP --reuse-values (real MDCB) ##########
+STATUS: deployed
+REVISION: 3
+deployment "gateway-tyk-dp-tyk-gateway" successfully rolled out
+CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+DP reuse-values proxies: /cp126/get -> HTTP 200
+0
+
+########## TC-01 CP --reuse-values (ns tyk-cp-ru) ##########
+install=0
+STATUS: deployed
+REVISION: 2
+deployment "gateway-tyk-cp-tyk-gateway" successfully rolled out
+deployment "dashboard-tyk-cp-tyk-dashboard" successfully rolled out
+deployment "mdcb-tyk-cp-tyk-mdcb" successfully rolled out
+NAME                                              READY   STATUS    RESTARTS      AGE
+dashboard-tyk-cp-tyk-dashboard-66448b75b4-d74bn   1/1     Running   1 (20s ago)   25s
+gateway-tyk-cp-tyk-gateway-6c5bc8f79c-72p99       1/1     Running   0             25s
+mdcb-tyk-cp-tyk-mdcb-f54985f-mnvjs                1/1     Running   0             25s
+dashboard-tyk-cp-tyk-dashboard-66448b75b4-d74bn: ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}} initSC=
+gateway-tyk-cp-tyk-gateway-6c5bc8f79c-72p99: ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}} initSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+mdcb-tyk-cp-tyk-mdcb-f54985f-mnvjs: ctrSC= initSC=
+CP-RU dashboard create API -> HTTP 200
+CP-RU gateway serves after --reuse-values: /ru126/get -> HTTP 200
+
+########## CP opt-out file live on 1.26 ##########
+STATUS: deployed
+REVISION: 3
+deployment "gateway-tyk-cp-tyk-gateway" successfully rolled out
+deployment "dashboard-tyk-cp-tyk-dashboard" successfully rolled out
+deployment "mdcb-tyk-cp-tyk-mdcb" successfully rolled out
+dashboard-tyk-cp-tyk-dashboard-55df99d649-rwwft: podSC={} ctrSC=
+gateway-tyk-cp-tyk-gateway-5b5597fc-624pq: podSC={} ctrSC=
+mdcb-tyk-cp-tyk-mdcb-f54985f-mnvjs: podSC={} ctrSC=
+
+########## FINAL inventory (1.26) ##########
+NAMESPACE            NAME                                                READY   STATUS    RESTARTS   AGE
+tyk-cp-ru            dashboard-tyk-cp-tyk-dashboard-55df99d649-rwwft     1/1     Running   0          25s
+tyk-cp-ru            gateway-tyk-cp-tyk-gateway-5b5597fc-624pq           1/1     Running   0          25s
+tyk-cp-ru            mdcb-tyk-cp-tyk-mdcb-f54985f-mnvjs                  1/1     Running   0          54s
+tyk-cp               dashboard-tyk-cp-tyk-dashboard-b4dcb8f64-4s2kr      1/1     Running   0          2m8s
+tyk-cp               gateway-tyk-cp-tyk-gateway-7684f5876c-mf7l4         1/1     Running   0          2m8s
+tyk-cp               mdcb-tyk-cp-tyk-mdcb-86b464c76f-5shc5               1/1     Running   0          2m8s
+tyk-dp               gateway-tyk-dp-tyk-gateway-7fccd6b6cc-fslmd         1/1     Running   0          102s
+tyk-dp               pump-tyk-dp-tyk-pump-68dbddf589-tvmh4               1/1     Running   0          102s
+tyk                  redis-master-0                                      1/1     Running   0          4m52s
+tyk                  tyk-postgres-postgresql-0                           1/1     Running   0          4m9s
+RUN126 DONE

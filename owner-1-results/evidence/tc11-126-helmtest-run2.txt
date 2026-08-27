@@ -1,0 +1,4 @@
+TEST SUITE:     test-tyk-oss-map
+Phase:          Succeeded
+TEST SUITE:     tyk-oss-test-tyk-oss
+Phase:          Succeeded

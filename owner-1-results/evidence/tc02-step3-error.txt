@@ -1,0 +1,12 @@
+      Reason:       CreateContainerConfigError
+    Ready:          False
+    Restart Count:  0
+    Liveness:       http-get http://:3000/hello delay=10s timeout=3s period=2s #success=1 #failure=2
+--
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  29s                default-scheduler  Successfully assigned tyk-old/dashboard-tyk-stack-tyk-dashboard-84569bd799-bkzjs to tyk-qa-126-control-plane
+  Normal   Pulled     28s                kubelet            Successfully pulled image "tykio/tyk-dashboard:v5.4.0" in 1.111926216s (1.111946673s including waiting)
+--
+  Warning  Failed     10s (x3 over 28s)  kubelet            Error: container has runAsNonRoot and image will run as root (pod: "dashboard-tyk-stack-tyk-dashboard-84569bd799-bkzjs_tyk-old(c7bb800e-2fcd-4bf5-9654-28c9b8a1996a)", container: dashboard-tyk-dashboard)
+  Normal   Pulled     10s                kubelet            Successfully pulled image "tykio/tyk-dashboard:v5.4.0" in 1.273124185s (1.273149392s including waiting)

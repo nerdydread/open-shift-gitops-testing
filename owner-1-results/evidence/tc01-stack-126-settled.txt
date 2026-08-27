@@ -1,0 +1,20 @@
+=== tyk-stk
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dashboard-tyk-stack-tyk-dashboard-5494ddb4b5-jwf8s   1/1     Running   0          64s
+gateway-tyk-stack-tyk-gateway-75b6d9d6c-5ljk8        1/1     Running   0          64s
+pump-tyk-stack-tyk-pump-59fd9545b7-vpg94             1/1     Running   0          64s
+-- pod/gateway-tyk-stack-tyk-gateway-75b6d9d6c-5ljk8
+  CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+  INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+  IMAGE=tykio/tyk-gateway-ee:v5.13.1
+  PHASE=Running
+=== tyk-stk-ru
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dashboard-tyk-stack-tyk-dashboard-64ff448c4c-fplr7   1/1     Running   0          2m30s
+gateway-tyk-stack-tyk-gateway-749b499dcc-m4d6j       1/1     Running   0          2m30s
+pump-tyk-stack-tyk-pump-67bddccd97-b7cpf             1/1     Running   0          3m17s
+-- pod/gateway-tyk-stack-tyk-gateway-749b499dcc-m4d6j
+  CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+  INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+  IMAGE=tykio/tyk-gateway-ee:v5.13.1
+  PHASE=Running

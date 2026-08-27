@@ -1,0 +1,50 @@
+=== tyk-oss: diff summary (released 5.3.0 -> main) ===
+   1 >         image: "docker.tyk.io/tyk-gateway/tyk-gateway:v5.13.1"
+   1 <       volumes:
+   1 <         volumeMounts:
+   1 <         image: "docker.tyk.io/tyk-gateway/tyk-gateway:v5.9.1"
+=== tyk-stack: diff summary (released 5.3.0 -> main) ===
+   3 >       labels:
+   3 >         app.kubernetes.io/managed-by: "Helm"
+   3 >         app.kubernetes.io/instance: "t"
+   3 <       annotations:
+   2 <       volumes:
+   2 <         volumeMounts:
+   1 >         tyk.tyk.io/k8s-bootstrap: tyk-k8s-bootstrap-pre-install
+   1 >         tyk.tyk.io/k8s-bootstrap: tyk-k8s-bootstrap-pre-delete
+   1 >         tyk.tyk.io/k8s-bootstrap: tyk-k8s-bootstrap-post-install
+   1 >           - name: TYK_DB_LOGLEVEL
+   1 >           - name: TYK_DB_LOGFORMAT
+   1 >           # TYK_DB_LOGFORMAT requires Tyk Dashboard v5.12.0 or later, TYK_DB_LOGLEVEL v5.14.0 or later.
+   1 >           # On older Dashboards set the system-wide TYK_LOGLEVEL via dashboard.extraEnvs instead.
+   1 >           # Log system events configuration.
+   1 >             value: "info"
+   1 >             value: "default"
+   1 <       labels:        
+   1 <       labels:    
+   1 <       labels: 
+=== tyk-control-plane: diff summary (released 5.3.0 -> main) ===
+   3 >       labels:
+   3 >         app.kubernetes.io/managed-by: "Helm"
+   3 >         app.kubernetes.io/instance: "t"
+   3 <       annotations:
+   2 <       volumes:
+   2 <         volumeMounts:
+   1 >         tyk.tyk.io/k8s-bootstrap: tyk-k8s-bootstrap-pre-install
+   1 >         tyk.tyk.io/k8s-bootstrap: tyk-k8s-bootstrap-pre-delete
+   1 >         tyk.tyk.io/k8s-bootstrap: tyk-k8s-bootstrap-post-install
+   1 >           - name: TYK_DB_LOGLEVEL
+   1 >           - name: TYK_DB_LOGFORMAT
+   1 >           # TYK_DB_LOGFORMAT requires Tyk Dashboard v5.12.0 or later, TYK_DB_LOGLEVEL v5.14.0 or later.
+   1 >           # On older Dashboards set the system-wide TYK_LOGLEVEL via dashboard.extraEnvs instead.
+   1 >           # Log system events configuration.
+   1 >             value: "info"
+   1 >             value: "default"
+   1 <       labels:        
+   1 <       labels:    
+   1 <       labels: 
+   1 <         {}
+   1 <             {}
+=== tyk-data-plane: diff summary (released 5.3.0 -> main) ===
+   1 <       volumes:
+   1 <         volumeMounts:

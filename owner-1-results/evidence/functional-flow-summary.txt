@@ -1,0 +1,8 @@
+=== FUNCTIONAL FLOW EVIDENCE (2026-08-27, kind v1.26.13, ns tyk-full, tree 39957f3) ===
+dashboard login: 302 / on success, 302 /?fail=true on wrong password (CSRF-correct form post)
+API create via dashboard: orders-api (auth token), product policy (acl partition), Bronze plan (rate 10/60s quota 1000/h)
+portal: provider connected+synced, product+plan imported, published to Public Catalogue
+developer: created via portal-api (activation email fails without SMTP — Active+Password set via admin API), UI login OK in browser
+access request: cart -> submit -> pending -> admin approve -> credential issued
+gateway: portal key=200, no key=401, bogus key=403, 10/min plan limit -> 429 after 10th call
+standalone component installs: components/tyk-gateway + components/tyk-pump Ready in tyk-solo

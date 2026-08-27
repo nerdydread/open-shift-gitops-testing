@@ -1,0 +1,4 @@
+./tyk-control-plane               1 chart(s) linted, 0 chart(s) failed 
+./tyk-oss                         1 chart(s) linted, 0 chart(s) failed 
+./tyk-stack                       1 chart(s) linted, 0 chart(s) failed 
+./tyk-data-plane                  1 chart(s) linted, 0 chart(s) failed 

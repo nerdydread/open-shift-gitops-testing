@@ -1,0 +1,16 @@
+=== gateway (component)
+  no unknown-field leak
+=== dashboard (component)
+  no unknown-field leak
+=== pump (component)
+  no unknown-field leak
+=== mdcb (component)
+  no unknown-field leak
+=== dev-portal (component)
+  no unknown-field leak
+=== operator (component)
+  no unknown-field leak
+=== bootstrap (component)
+  no unknown-field leak
+=== helm-test pod (tyk-oss)
+  no unknown-field leak

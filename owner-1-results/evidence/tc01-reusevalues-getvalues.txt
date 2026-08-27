@@ -1,0 +1,5 @@
+USER-SUPPLIED VALUES:
+global:
+  redis:
+    addrs:
+    - redis-master.tyk.svc:6379

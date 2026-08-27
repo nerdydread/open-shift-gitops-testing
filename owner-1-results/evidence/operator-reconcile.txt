@@ -1,0 +1,8 @@
+=== OPERATOR RECONCILIATION EVIDENCE (2026-08-27, kind 1.26b, ns tyk-full, operator v1.4.2) ===
+licence validated: Valid till 2026-09-19; 13 controllers started
+ApiDefinition CR operator-demo -> status.latestTransaction=Successful, api_id=dHlrLWZ1bGwvb3BlcmF0b3ItZGVtbw
+gateway /operator-demo/get -> 200 after apply; -> 404 after CR delete
+D-10 sharpened on tyk-stack: enabling operator on an EXISTING release fails twice:
+  1) tyk-operator-conf is bootstrap-managed; upgrade never writes TYK_OPERATOR_LICENSEKEY (len=0) -> crashloop 'kindly specify a valid license key'
+  2) helm never installs subchart crds/ on upgrade -> crashloop 'unable to create controller: no matches for kind'
+  fixes: patch the secret + kubectl apply tyk-operator-crds/crd-v1.4.2.yaml + restart

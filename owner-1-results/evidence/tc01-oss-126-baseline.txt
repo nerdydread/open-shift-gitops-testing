@@ -1,0 +1,5 @@
+POD_SC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+IMAGE=docker.tyk.io/tyk-gateway/tyk-gateway:v5.9.1
+INIT_IMAGE=busybox:1.32

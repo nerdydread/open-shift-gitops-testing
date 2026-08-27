@@ -1,0 +1,25 @@
+time="Aug 26 20:25:49" level=info msg="Starting gateway rate limiter notifications..."
+time="Aug 26 20:25:49" level=info msg="Loading policy from dir /mnt/tyk-gateway/policies/policies.json"
+time="Aug 26 20:25:49" level=error msg="Couldn't unmarshal policy configuration from dir: /mnt/tyk-gateway/policies/policies.json : EOF"
+time="Aug 26 20:25:49" level=info msg="Policies found (1 total):" prefix=main
+time="Aug 26 20:25:49" level=info msg="Detected 0 APIs" prefix=main
+time="Aug 26 20:25:49" level=warning msg="No API Definitions found, not reloading" prefix=main
+time="Aug 26 20:25:56" level=info msg="App path: /mnt/tyk-gateway/apps"
+time="Aug 26 20:25:56" level=info msg="EL file path: /mnt/tyk-gateway/apps/ru2.json"
+time="Aug 26 20:25:56" level=error msg="Failed to create file! - open /mnt/tyk-gateway/apps/ru2.json: permission denied"
+time="Aug 26 20:25:56" level=info msg="Group reload accepted." prefix=api status=ok
+time="Aug 26 20:25:56" level=info msg="Reloading endpoints" prefix=pub-sub
+time="Aug 26 20:25:56" level=info msg="Reloaded URL Structure - Success" prefix=api
+time="Aug 26 20:25:56" level=info msg="Reload queued" prefix=main
+time="Aug 26 20:25:57" level=info msg="reload: initiating" prefix=main
+time="Aug 26 20:25:57" level=info msg="Loading policies" prefix=main
+time="Aug 26 20:25:57" level=info msg="Loading policy from dir /mnt/tyk-gateway/policies/policies.json"
+time="Aug 26 20:25:57" level=error msg="Couldn't unmarshal policy configuration from dir: /mnt/tyk-gateway/policies/policies.json : EOF"
+time="Aug 26 20:25:57" level=info msg="Policies found (1 total):" prefix=main
+time="Aug 26 20:25:57" level=info msg="Detected 0 APIs" prefix=main
+time="Aug 26 20:25:57" level=warning msg="No API Definitions found, not reloading" prefix=main
+time="Aug 26 20:25:57" level=info msg="reload: complete" prefix=main
+time="Aug 26 20:25:57" level=info msg="Initiating coprocess reload" prefix=main
+time="Aug 26 20:25:57" level=info msg="Reloading middlewares" prefix=coprocess
+time="Aug 26 20:25:57" level=info msg="coprocess reload complete" prefix=main
+time="Aug 26 20:25:57" level=info msg="reload: cycle completed in 9.533338ms" prefix=main

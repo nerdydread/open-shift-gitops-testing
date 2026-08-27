@@ -1,0 +1,87 @@
+# TT-17018 QA (Owner 1, TC-04 Step 1) — opt-out values for tyk-stack.
+#
+# Turns every securityContext block off with `enabled: false` so the rendered
+# manifests carry no pod-level, container-level or init-container securityContext
+# and the cluster (e.g. an OpenShift SCC) is free to inject its own UID/GID.
+#
+# `securityContext: {}` is NOT equivalent — Helm deep-merges the component chart
+# defaults back in, so `{}` is a silent no-op and produces a false pass.
+#
+# The gateway init container needs BOTH its own block and
+# gateway.containerSecurityContext disabled: with only the init block off the
+# template falls back to gateway.containerSecurityContext, which asserts
+# runAsNonRoot: true with no numeric UID. busybox:1.32 declares no USER, so on
+# vanilla Kubernetes that combination fails admission with
+# "container has runAsNonRoot and image will run as root".
+#
+# Key irregularities, deliberately not normalised:
+#   * the operator pod-level key is `managerPodSecurityContext`; its
+#     container-level key is `securityContext`. `tyk-operator.podSecurityContext`
+#     (the only operator key the umbrella values.yaml exposes) is dead — no
+#     template reads it. See TC-04 Step 3 / gap #9.
+#   * dev-portal blocks sit at the chart root, with no `.devPortal` nesting
+#   * tyk-stack does have a `tests:` block (helm-test pod); tyk-control-plane does not
+
+tyk-gateway:
+  gateway:
+    securityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+    initContainers:
+      setupDirectories:
+        securityContext:
+          enabled: false
+
+tyk-dashboard:
+  dashboard:
+    securityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+    initContainers:
+      initAnalyticsConf:
+        securityContext:
+          enabled: false
+
+tyk-pump:
+  pump:
+    securityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+
+tyk-bootstrap:
+  bootstrap:
+    securityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+
+# dev-portal: blocks are at the chart root. Only rendered when
+# global.components.devPortal=true.
+tyk-dev-portal:
+  securityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
+  bootstrapJob:
+    securityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+
+# operator: only rendered when global.components.operator=true (needs cert-manager).
+tyk-operator:
+  managerPodSecurityContext:
+    enabled: false
+  securityContext:
+    enabled: false
+
+# helm-test pod. Its image (zalbiraw/alpine-curl-jq) has no USER directive, so it
+# runs as root once the blocks are omitted — fine on kind, SCC-assigned on OpenShift.
+tests:
+  securityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false

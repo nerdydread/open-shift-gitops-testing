@@ -1,0 +1,8 @@
+=== tyk-oss (default toggles)
+  clean
+=== tyk-stack (default toggles)
+  clean
+=== tyk-control-plane (default toggles)
+  clean
+=== tyk-data-plane (default toggles)
+  clean
