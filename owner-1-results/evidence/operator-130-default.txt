@@ -1,0 +1,4 @@
+podSC={"runAsNonRoot":true}
+ctrSC=
+image=tykio/tyk-operator:v1.4.2
+ready=false

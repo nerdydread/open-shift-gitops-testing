@@ -1,0 +1,28 @@
+NAMESPACE            NAME                                                 READY   STATUS    RESTARTS   AGE     IP             NODE                       NOMINATED NODE   READINESS GATES
+kube-system          coredns-787d4945fb-47zjk                             1/1     Running   0          34m     10.244.0.2     tyk-qa-126-control-plane   <none>           <none>
+kube-system          coredns-787d4945fb-mzm5x                             1/1     Running   0          34m     10.244.0.3     tyk-qa-126-control-plane   <none>           <none>
+kube-system          etcd-tyk-qa-126-control-plane                        1/1     Running   0          34m     192.168.97.7   tyk-qa-126-control-plane   <none>           <none>
+kube-system          kindnet-62hc5                                        1/1     Running   0          34m     192.168.97.7   tyk-qa-126-control-plane   <none>           <none>
+kube-system          kube-apiserver-tyk-qa-126-control-plane              1/1     Running   0          34m     192.168.97.7   tyk-qa-126-control-plane   <none>           <none>
+kube-system          kube-controller-manager-tyk-qa-126-control-plane     1/1     Running   0          34m     192.168.97.7   tyk-qa-126-control-plane   <none>           <none>
+kube-system          kube-proxy-hkgsl                                     1/1     Running   0          34m     192.168.97.7   tyk-qa-126-control-plane   <none>           <none>
+kube-system          kube-scheduler-tyk-qa-126-control-plane              1/1     Running   0          34m     192.168.97.7   tyk-qa-126-control-plane   <none>           <none>
+local-path-storage   local-path-provisioner-57c674d644-2m6bf              1/1     Running   0          34m     10.244.0.4     tyk-qa-126-control-plane   <none>           <none>
+tyk-11               gateway-tyk-oss-tyk-gateway-54b477ddc8-vkk2h         1/1     Running   0          7m15s   10.244.0.28    tyk-qa-126-control-plane   <none>           <none>
+tyk-11               pump-tyk-oss-tyk-pump-84c7c9cdf7-md6qt               2/2     Running   0          7m15s   10.244.0.29    tyk-qa-126-control-plane   <none>           <none>
+tyk-dash             dashboard-tyk-stack-tyk-dashboard-697fcf9dfb-7pls7   1/1     Running   0          4m49s   10.244.0.32    tyk-qa-126-control-plane   <none>           <none>
+tyk-dash             gateway-tyk-stack-tyk-gateway-749cdfcd9f-hxhrw       1/1     Running   0          4m49s   10.244.0.33    tyk-qa-126-control-plane   <none>           <none>
+tyk-dash             pump-tyk-stack-tyk-pump-59fd9545b7-mv77t             1/1     Running   0          4m49s   10.244.0.31    tyk-qa-126-control-plane   <none>           <none>
+tyk-dp               gateway-tyk-dp-tyk-gateway-5b5d979c4f-xcdqq          1/1     Running   0          32s     10.244.0.55    tyk-qa-126-control-plane   <none>           <none>
+tyk-dp               pump-tyk-dp-tyk-pump-66c7647cf9-9zbmn                1/1     Running   0          32s     10.244.0.54    tyk-qa-126-control-plane   <none>           <none>
+tyk-ru               gateway-tyk-oss-tyk-gateway-75b7b78c58-bxdwc         1/1     Running   0          14m     10.244.0.13    tyk-qa-126-control-plane   <none>           <none>
+tyk-stk-ru           dashboard-tyk-stack-tyk-dashboard-64ff448c4c-fplr7   1/1     Running   0          2m45s   10.244.0.40    tyk-qa-126-control-plane   <none>           <none>
+tyk-stk-ru           gateway-tyk-stack-tyk-gateway-749b499dcc-m4d6j       1/1     Running   0          2m45s   10.244.0.41    tyk-qa-126-control-plane   <none>           <none>
+tyk-stk-ru           pump-tyk-stack-tyk-pump-67bddccd97-b7cpf             1/1     Running   0          3m32s   10.244.0.36    tyk-qa-126-control-plane   <none>           <none>
+tyk-stk              dashboard-tyk-stack-tyk-dashboard-5494ddb4b5-jwf8s   1/1     Running   0          79s     10.244.0.48    tyk-qa-126-control-plane   <none>           <none>
+tyk-stk              gateway-tyk-stack-tyk-gateway-75b6d9d6c-5ljk8        1/1     Running   0          79s     10.244.0.47    tyk-qa-126-control-plane   <none>           <none>
+tyk-stk              pump-tyk-stack-tyk-pump-59fd9545b7-vpg94             1/1     Running   0          79s     10.244.0.49    tyk-qa-126-control-plane   <none>           <none>
+tyk                  gateway-tyk-oss-tyk-gateway-75b7b78c58-hwhvr         1/1     Running   0          20m     10.244.0.8     tyk-qa-126-control-plane   <none>           <none>
+tyk                  redis-master-0                                       1/1     Running   0          23m     10.244.0.6     tyk-qa-126-control-plane   <none>           <none>
+tyk                  tyk-postgres-postgresql-0                            1/1     Running   0          16m     10.244.0.11    tyk-qa-126-control-plane   <none>           <none>
+Server Version: v1.26.13

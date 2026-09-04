@@ -1,0 +1,6 @@
+INIT_NAME=init-analytics-conf
+INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+INIT_EXIT=0
+MAIN_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+IMAGE=tykio/tyk-dashboard:5.0.2
+READY=true

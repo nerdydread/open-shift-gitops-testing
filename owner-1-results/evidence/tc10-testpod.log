@@ -1,0 +1,18 @@
+=== tyk-oss test pod (opt-out)
+name: "t-tyk-oss-test-tyk-oss"
+podSC: null
+ctrSC: null
+image: zalbiraw/alpine-curl-jq
+pod/t-tyk-oss-test-tyk-oss created (server dry run)
+=== tyk-stack test pod (opt-out)
+name: "t-tyk-stack-test-tyk-stack"
+podSC: null
+ctrSC: null
+image: zalbiraw/alpine-curl-jq
+pod/t-tyk-stack-test-tyk-stack created (server dry run)
+=== tyk-data-plane test pod (opt-out)
+name: "t-tyk-data-plane-test-tyk-data-plane"
+podSC: null
+ctrSC: null
+image: zalbiraw/alpine-curl-jq
+pod/t-tyk-data-plane-test-tyk-data-plane created (server dry run)

@@ -1,0 +1,6 @@
+PORTAL podSC={"fsGroup":2000,"runAsNonRoot":true}
+PORTAL ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+PORTAL image=tykio/portal:v1.18.0
+JOB podSC={}
+JOB ctrSC=
+JOB image=curlimages/curl:8.8.0

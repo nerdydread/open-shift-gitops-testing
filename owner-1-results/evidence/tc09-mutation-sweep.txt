@@ -1,0 +1,45 @@
+components/tyk-bootstrap/templates/bootstrap-post-install.yaml:64 ($sc) caught     Tests:       2 failed, 214 passed, 216 total
+         FAIL  Bootstrap securityContext enabled flag | components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml; FAIL  Bootstrap annotations, RBAC metadata and securityContext escape hatch | tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml;
+components/tyk-bootstrap/templates/bootstrap-post-install.yaml:74 ($csc) caught     Tests:       2 failed, 214 passed, 216 total
+         FAIL  Bootstrap securityContext enabled flag | components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml; FAIL  Bootstrap annotations, RBAC metadata and securityContext escape hatch | tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml;
+components/tyk-bootstrap/templates/bootstrap-pre-delete.yaml:64 ($sc)  caught     Tests:       3 failed, 213 passed, 216 total
+         FAIL  Bootstrap securityContext enabled flag | components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml; FAIL  Bootstrap RBAC and pod metadata render no nulls | tyk-control-plane/tests/bootstrapRbacMetadata_test.yaml; FAIL  Bootstrap annotations, RBAC metadata and securityContext escape hatch | tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml;
+components/tyk-bootstrap/templates/bootstrap-pre-delete.yaml:78 ($csc) caught     Tests:       2 failed, 214 passed, 216 total
+         FAIL  Bootstrap securityContext enabled flag | components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml; FAIL  Bootstrap annotations, RBAC metadata and securityContext escape hatch | tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml;
+components/tyk-bootstrap/templates/bootstrap-pre-install.yaml:63 ($sc) caught     Tests:       4 failed, 212 passed, 216 total
+         FAIL  Bootstrap securityContext enabled flag | components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml; FAIL  Bootstrap RBAC and pod metadata render no nulls | tyk-control-plane/tests/bootstrapRbacMetadata_test.yaml; FAIL  Bootstrap annotations, RBAC metadata and securityContext escape hatch | tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml;
+components/tyk-bootstrap/templates/bootstrap-pre-install.yaml:73 ($csc) caught     Tests:       3 failed, 213 passed, 216 total
+         FAIL  Bootstrap securityContext enabled flag | components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml; FAIL  Bootstrap RBAC and pod metadata render no nulls | tyk-control-plane/tests/bootstrapRbacMetadata_test.yaml; FAIL  Bootstrap annotations, RBAC metadata and securityContext escape hatch | tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml;
+components/tyk-dashboard/templates/deployment-dashboard.yaml:75 ($initCsc) caught     Tests:       3 failed, 213 passed, 216 total
+         FAIL  Dashboard init-analytics-conf securityContext | components/tyk-dashboard/tests/dashboardInitContainerSecurityContext_test.yaml; FAIL  Dashboard init container securityContext (umbrella) | tyk-stack/tests/dashboardInitContainerSecurityContext_test.yaml; FAIL  Dashboard and pump securityContext enabled flag | tyk-stack/tests/securityContextEnabledDashPump_test.yaml;
+components/tyk-dashboard/templates/deployment-dashboard.yaml:90 ($csc) caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dashboard and pump securityContext enabled flag | tyk-stack/tests/securityContextEnabledDashPump_test.yaml;
+components/tyk-dashboard/templates/deployment-dashboard.yaml:382 ($podSc) caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dashboard and pump securityContext enabled flag | tyk-stack/tests/securityContextEnabledDashPump_test.yaml;
+components/tyk-dev-portal/templates/job-portal.yaml:20 ($podSc)        caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dev Portal securityContext enabled flag | tyk-stack/tests/securityContextEnabledPortal_test.yaml;
+components/tyk-dev-portal/templates/job-portal.yaml:28 ($csc)          caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dev Portal securityContext enabled flag | tyk-stack/tests/securityContextEnabledPortal_test.yaml;
+components/tyk-dev-portal/templates/statefulset-enterprise-portal.yaml:70 ($csc) caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dev Portal securityContext enabled flag | tyk-stack/tests/securityContextEnabledPortal_test.yaml;
+components/tyk-dev-portal/templates/statefulset-enterprise-portal.yaml:255 ($podSc) caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dev Portal securityContext enabled flag | tyk-stack/tests/securityContextEnabledPortal_test.yaml;
+components/tyk-gateway/templates/deployment-gw-repset.yaml:115 ($initSc) caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Gateway setup-directories init container securityContext precedence | tyk-stack/tests/initContainerSecurityContext_test.yaml;
+components/tyk-gateway/templates/deployment-gw-repset.yaml:118 ($mainSc) NOT CAUGHT Tests:       216 passed, 216 total
+components/tyk-gateway/templates/deployment-gw-repset.yaml:132 ($csc)  caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Gateway setup-directories init container securityContext precedence | tyk-stack/tests/initContainerSecurityContext_test.yaml;
+components/tyk-gateway/templates/deployment-gw-repset.yaml:536 ($podSc) caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Gateway setup-directories init container securityContext precedence | tyk-stack/tests/initContainerSecurityContext_test.yaml;
+components/tyk-mdcb/templates/deployment-mdcb.yaml:39 ($podSc)         caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  MDCB securityContext enabled flag | tyk-control-plane/tests/securityContextEnabledMdcb_test.yaml;
+components/tyk-mdcb/templates/deployment-mdcb.yaml:46 ($csc)           caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  MDCB securityContext enabled flag | tyk-control-plane/tests/securityContextEnabledMdcb_test.yaml;
+components/tyk-operator/templates/all.yaml:378 ($csc)                  NOT CAUGHT Tests:       216 passed, 216 total
+components/tyk-operator/templates/all.yaml:398 ($podSc)                caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Tyk Operator securityContext enabled flag | tyk-stack/tests/securityContextEnabledOperator_test.yaml;
+components/tyk-pump/templates/deployment-pmp.yaml:64 ($csc)            caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dashboard and pump securityContext enabled flag | tyk-stack/tests/securityContextEnabledDashPump_test.yaml;
+components/tyk-pump/templates/deployment-pmp.yaml:405 ($podSc)         caught     Tests:       1 failed, 215 passed, 216 total
+         FAIL  Dashboard and pump securityContext enabled flag | tyk-stack/tests/securityContextEnabledDashPump_test.yaml;
+DONE

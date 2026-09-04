@@ -1,0 +1,35 @@
+### [tyk-stk] install released tyk-stack 5.3.0
+exit=0
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dashboard-tyk-stack-tyk-dashboard-68f8f9b8d9-nlw5b   1/1     Running   0          27s
+gateway-tyk-stack-tyk-gateway-6f595d49b5-xn2pg       1/1     Running   0          27s
+pump-tyk-stack-tyk-pump-67bddccd97-q8z6n             1/1     Running   0          27s
+### [tyk-stk] baseline gateway securityContext
+POD_SC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+IMAGE=tykio/tyk-gateway-ee:v5.13.1
+### [tyk-stk] upgrade to main with flag: none
+STATUS: deployed
+REVISION: 2
+NAME                                                 READY   STATUS        RESTARTS   AGE
+dashboard-tyk-stack-tyk-dashboard-5494ddb4b5-jwf8s   0/1     Running       0          17s
+gateway-tyk-stack-tyk-gateway-6f595d49b5-xn2pg       1/1     Terminating   0          44s
+gateway-tyk-stack-tyk-gateway-75b6d9d6c-5ljk8        1/1     Running       0          17s
+pump-tyk-stack-tyk-pump-59fd9545b7-vpg94             1/1     Running       0          17s
+### [tyk-stk] post-upgrade gateway securityContext
+POD_SC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+IMAGE=tykio/tyk-gateway-ee:v5.13.1
+INIT_EXIT=0
+### [tyk-stk] gateway log errors (permission/write):
+time="2026-08-26T20:39:48Z" level=error msg="Request failed with error Get \"http://dashboard-svc-tyk-stack-tyk-dashboard.tyk-stk.svc:3000/register/node\": dial tcp 10.96.195.95:3000: connect: connection refused; retrying in 5s" prefix=dashboard
+time="2026-08-26T20:39:53Z" level=error msg="Request failed with error Get \"http://dashboard-svc-tyk-stack-tyk-dashboard.tyk-stk.svc:3000/register/node\": dial tcp 10.96.195.95:3000: connect: connection refused; retrying in 5s" prefix=dashboard
+time="2026-08-26T20:39:58Z" level=error msg="dashboard is down? Heartbeat is failing" liveness-check=true prefix=main
+time="2026-08-26T20:39:58Z" level=error msg="Request failed with error Get \"http://dashboard-svc-tyk-stack-tyk-dashboard.tyk-stk.svc:3000/register/node\": dial tcp 10.96.195.95:3000: connect: connection refused; retrying in 5s" prefix=dashboard
+time="2026-08-26T20:40:03Z" level=error msg="Request failed with error Get \"http://dashboard-svc-tyk-stack-tyk-dashboard.tyk-stk.svc:3000/register/node\": dial tcp 10.96.195.95:3000: connect: connection refused; retrying in 5s" prefix=dashboard
+time="2026-08-26T20:40:13Z" level=error msg="Closing listeners: close tcp [::]:8080: use of closed network connection\n" prefix=main
+time="2026-08-26T20:40:25Z" level=error msg="dashboard is down? Heartbeat is failing" liveness-check=true prefix=main
+### [tyk-stk] dashboard status:
+Running false

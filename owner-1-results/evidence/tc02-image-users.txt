@@ -1,0 +1,14 @@
+busybox:1.32                                         USER=EMPTY (=root)
+curlimages/curl:8.8.0                                USER=curl_user
+docker.tyk.io/tyk-gateway/tyk-gateway:v5.13.1        USER=65532
+docker.tyk.io/tyk-pump/tyk-pump:v1.16.0              USER=65532
+tykio/portal:v1.18.0                                 USER=65532
+tykio/tyk-dashboard:v5.13.1                          USER=65532
+tykio/tyk-gateway-ee:v5.13.1                         USER=65532
+tykio/tyk-k8s-bootstrap-post:v2.2.0                  USER=65532:65532
+tykio/tyk-k8s-bootstrap-pre-delete:v2.2.0            USER=65532:65532
+tykio/tyk-k8s-bootstrap-pre-install:v2.2.0           USER=65532:65532
+tykio/tyk-mdcb-docker:v2.12.0                        USER=65532
+tykio/tyk-operator:v1.4.2                            USER=65532:65532
+tykio/tyk-pump-docker-pub:v1.16.0                    USER=65532
+zalbiraw/alpine-curl-jq                              USER=EMPTY (=root)

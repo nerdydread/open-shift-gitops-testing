@@ -1,0 +1,177 @@
+
+########## S3 create kind v1.30.0 ##########
+kubectl cluster-info --context kind-tyk-qa-130
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+Switched to context "kind-tyk-qa-130".
+Server Version: v1.30.0
+NAME                       STATUS     ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION                        CONTAINER-RUNTIME
+tyk-qa-130-control-plane   NotReady   control-plane   4s    v1.30.0   192.168.97.7   <none>        Debian GNU/Linux 12 (bookworm)   7.0.14-orbstack-00374-gbbca68e8d741   containerd://1.7.15
+
+########## S4 Redis + PostgreSQL ##########
+redis exit=0
+postgres exit=0
+NAME                        READY   STATUS    RESTARTS   AGE
+redis-master-0              1/1     Running   0          69s
+tyk-postgres-postgresql-0   1/1     Running   0          26s
+
+########## TC-10 Step 1 server-side dry-run leak sweep (1.30) ##########
+tyk-oss              clean (no unknown field)
+tyk-stack            clean (no unknown field)
+tyk-control-plane    clean (no unknown field)
+tyk-data-plane       clean (no unknown field)
+
+########## TC-01 Steps 1-2 released tyk-oss 5.3.0 + state (ns tyk) ##########
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+BASELINE POD_SC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+BASELINE CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+BASELINE INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+BASELINE IMAGE=docker.tyk.io/tyk-gateway/tyk-gateway:v5.9.1
+HTTP 200
+{"key":"pre1","status":"ok","action":"added"}
+
+{"status":"ok","message":""}
+
+proxy /pre1/ -> HTTP 200
+
+########## TC-01 Step 3 upgrade to main WITHOUT --reuse-values ##########
+STATUS: deployed
+REVISION: 2
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+NAME                                           READY   STATUS    RESTARTS   AGE
+gateway-tyk-oss-tyk-gateway-7dc6984b77-54kvs   1/1     Running   0          29s
+redis-master-0                                 1/1     Running   0          2m16s
+tyk-postgres-postgresql-0                      1/1     Running   0          93s
+POST POD_SC={"fsGroup":2000,"runAsNonRoot":true}
+POST CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+POST INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+POST IMAGE=docker.tyk.io/tyk-gateway/tyk-gateway:v5.13.1
+POST INIT_EXIT=0
+
+########## TC-01 Steps 6-7 init container + state/writes ##########
+2m16s       Warning   FailedScheduling        pod/redis-master-0                                     0/1 nodes are available: 1 node(s) had untolerated taint {node.kubernetes.io/not-ready: }. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+{"status":"error","message":"API not found"}
+
+HTTP 404
+
+HTTP 200
+{"key":"post1","status":"ok","action":"added"}
+
+{"status":"ok","message":""}
+
+proxy /post1/ -> HTTP 200
+
+########## TC-01 Step 4 --reuse-values path (ns tyk-ru) ##########
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+STATUS: deployed
+REVISION: 2
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+RU CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+RU INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+RU IMAGE=docker.tyk.io/tyk-gateway/tyk-gateway:v5.9.1
+RU READY=true
+HTTP 500
+{"status":"error","message":"file object creation failed, write error"}
+
+{"status":"ok","message":""}
+
+proxy /ru1/ -> HTTP 404
+time="Aug 26 20:46:09" level=error msg="Failed to create file! - open /mnt/tyk-gateway/apps/ru1.json: permission denied"
+
+########## TC-01 Step 4b workaround --reset-then-reuse-values ##########
+STATUS: deployed
+REVISION: 3
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+HTTP 200
+{"key":"ru2","status":"ok","action":"added"}
+
+{"status":"ok","message":""}
+
+proxy /ru2/ -> HTTP 200
+
+########## TC-11 Steps 1-2 stock fresh install of main (ns tyk-11) ##########
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+POD_SC={"fsGroup":2000,"runAsNonRoot":true}
+INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+INIT_EXIT=0
+READY=true
+HTTP 200
+{"key":"t11a","status":"ok","action":"added"}
+
+{"status":"ok","message":""}
+
+proxy /t11a/ -> HTTP 200
+
+########## TC-11 Step 5 PSA restricted ##########
+namespace/tyk-11 labeled
+deployment.apps/gateway-tyk-oss-tyk-gateway restarted
+deployment "gateway-tyk-oss-tyk-gateway" successfully rolled out
+NAME                                           READY   STATUS    RESTARTS   AGE
+gateway-tyk-oss-tyk-gateway-7b68f7f86f-4vdtj   1/1     Running   0          9s
+
+########## TC-11 Step 6 helm test x3 ##########
+-- run 1
+TEST SUITE:     test-tyk-oss-map
+Phase:          Succeeded
+TEST SUITE:     tyk-oss-test-tyk-oss
+Phase:          Succeeded
+-- run 2
+TEST SUITE:     test-tyk-oss-map
+Phase:          Succeeded
+TEST SUITE:     tyk-oss-test-tyk-oss
+Phase:          Succeeded
+-- run 3
+TEST SUITE:     test-tyk-oss-map
+Phase:          Succeeded
+TEST SUITE:     tyk-oss-test-tyk-oss
+Phase:          Succeeded
+
+########## TC-11 Step 4 pump extraContainers + securityContext disabled ##########
+deployment "pump-tyk-oss-tyk-pump" successfully rolled out
+CONTAINERS=pump-tyk-pump qa-sidecar
+READY=true true
+PUMP_POD_SC={}
+
+########## TC-01 tyk-stack leg (ns tyk-stk, plain upgrade) ##########
+install exit=0
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dashboard-tyk-stack-tyk-dashboard-765dbfccfc-h9h99   1/1     Running   0          47s
+gateway-tyk-stack-tyk-gateway-7bb6fb84c4-c68b5       1/1     Running   0          47s
+pump-tyk-stack-tyk-pump-6865586dc5-dqrc6             1/1     Running   0          47s
+STATUS: deployed
+REVISION: 2
+deployment "gateway-tyk-stack-tyk-gateway" successfully rolled out
+deployment "dashboard-tyk-stack-tyk-dashboard" successfully rolled out
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dashboard-tyk-stack-tyk-dashboard-8467dd64cf-24bjp   1/1     Running   0          26s
+gateway-tyk-stack-tyk-gateway-7b4449f8-k78pj         1/1     Running   0          26s
+pump-tyk-stack-tyk-pump-6c65cfcbd7-qxrnd             1/1     Running   0          26s
+STK CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}
+STK INIT_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+STK IMAGE=tykio/tyk-gateway-ee:v5.13.1
+
+########## helm test on tyk-stack x2 ##########
+-- run 1
+TEST SUITE:     test-tyk-stack-map
+Phase:          Succeeded
+TEST SUITE:     tyk-stack-test-tyk-stack
+Phase:          Succeeded
+-- run 2
+TEST SUITE:     test-tyk-stack-map
+Phase:          Succeeded
+TEST SUITE:     tyk-stack-test-tyk-stack
+Phase:          Succeeded
+
+########## FINAL pod inventory ##########
+NAMESPACE            NAME                                                 READY   STATUS      RESTARTS   AGE
+tyk-11               gateway-tyk-oss-tyk-gateway-c9f757c7-kgdhq           1/1     Running     0          95s
+tyk-11               pump-tyk-oss-tyk-pump-546d94c86d-2qsmz               2/2     Running     0          95s
+tyk-ru               gateway-tyk-oss-tyk-gateway-7dc6984b77-nnhdj         1/1     Running     0          3m34s
+tyk-stk              dashboard-tyk-stack-tyk-dashboard-8467dd64cf-24bjp   1/1     Running     0          33s
+tyk-stk              gateway-tyk-stack-tyk-gateway-7b4449f8-k78pj         1/1     Running     0          33s
+tyk-stk              pump-tyk-stack-tyk-pump-6c65cfcbd7-qxrnd             1/1     Running     0          33s
+tyk-stk              tyk-stack-test-tyk-stack                             0/1     Completed   0          3s
+tyk                  gateway-tyk-oss-tyk-gateway-7dc6984b77-54kvs         1/1     Running     0          4m35s
+tyk                  redis-master-0                                       1/1     Running     0          6m22s
+tyk                  tyk-postgres-postgresql-0                            1/1     Running     0          5m39s
+RUN130 DONE

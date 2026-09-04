@@ -1,0 +1,12 @@
+dashboard-tyk-cp-tyk-dashboard-8678cf789b-869b5
+  ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+  initSC=
+  image=tykio/tyk-dashboard:v5.13.1
+gateway-tyk-cp-tyk-gateway-57546db844-cktfp
+  ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+  initSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}
+  image=tykio/tyk-gateway-ee:v5.13.1
+mdcb-tyk-cp-tyk-mdcb-6f9bff4d66-qq4dn
+  ctrSC=
+  initSC=
+  image=tykio/tyk-mdcb-docker:v2.12.0

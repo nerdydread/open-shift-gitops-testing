@@ -1,0 +1,58 @@
+
+### Chart [ tyk-bootstrap ] ./components/tyk-bootstrap
+
+ PASS  Bootstrap Job annotations and pod labels are quoted and pod metadata is never null	components/tyk-bootstrap/tests/bootstrapAnnotationQuoting_test.yaml
+ PASS  Bootstrap pre/post-install Job metadata renders no null keys	components/tyk-bootstrap/tests/bootstrapPodTemplateMetadata_test.yaml
+ PASS  Bootstrap RBAC metadata renders no null annotations	components/tyk-bootstrap/tests/bootstrapRbacMetadata_test.yaml
+ PASS  Bootstrap securityContext enabled flag	components/tyk-bootstrap/tests/bootstrapSecurityContextEnabled_test.yaml
+
+### Chart [ tyk-dashboard ] ./components/tyk-dashboard
+
+ PASS  Dashboard init-analytics-conf securityContext	components/tyk-dashboard/tests/dashboardInitContainerSecurityContext_test.yaml
+ PASS  Dashboard Deployment renders no null keys	components/tyk-dashboard/tests/dashboardNullKeys_test.yaml
+ PASS  Dashboard securityContext empty-block guard	components/tyk-dashboard/tests/dashboardSecurityContextEmpty_test.yaml
+
+### Chart [ tyk-dev-portal ] ./components/tyk-dev-portal
+
+ PASS  Dev portal workload renders no null keys	components/tyk-dev-portal/tests/portalNullKeys_test.yaml
+
+### Chart [ tyk-pump ] ./components/tyk-pump
+
+ PASS  Pump Deployment renders no null keys	components/tyk-pump/tests/pumpNullKeys_test.yaml
+ PASS  Pump securityContext empty-block guard	components/tyk-pump/tests/pumpSecurityContextEmpty_test.yaml
+
+### Chart [ tyk-control-plane ] ./tyk-control-plane
+
+ PASS  Bootstrap pre/post-install Job metadata renders no null keys	tyk-control-plane/tests/bootstrapPodTemplateMetadata_test.yaml
+ PASS  Bootstrap RBAC and pod metadata render no nulls	tyk-control-plane/tests/bootstrapRbacMetadata_test.yaml
+ PASS  Test priorityClassName for MDCB	tyk-control-plane/tests/priorityClassName_test.yaml
+ PASS  MDCB securityContext enabled flag	tyk-control-plane/tests/securityContextEnabledMdcb_test.yaml
+
+### Chart [ tyk-stack ] ./tyk-stack
+
+ PASS  Bootstrap annotations, RBAC metadata and securityContext escape hatch	tyk-stack/tests/bootstrapAnnotationQuoting_test.yaml
+ PASS  Bootstrap job backoffLimit contract	tyk-stack/tests/bootstrapBackoffLimit_test.yaml
+ PASS  Bootstrap pre/post-install Job metadata renders no null keys	tyk-stack/tests/bootstrapPodTemplateMetadata_test.yaml
+ PASS  Gateway and Pump connectionString secret source	tyk-stack/tests/connectionStringSecret_test.yaml
+ PASS  Test Dashboard Deployment	tyk-stack/tests/dash-deployment_test.yaml
+ PASS  Test Dashboard HPA	tyk-stack/tests/dash-hpa_test.yaml
+ PASS  Dashboard init container securityContext (umbrella)	tyk-stack/tests/dashboardInitContainerSecurityContext_test.yaml
+ PASS  Bootstrap pre-delete Job disableHelmHooks suppression	tyk-stack/tests/disableHelmHooks_test.yaml
+ PASS  Test Gateway terminationGracePeriodSeconds, lifecycle and strategy	tyk-stack/tests/gateway-lifecycle_test.yaml
+ PASS  Test imagePullSecrets for bootstrap jobs	tyk-stack/tests/imagePullSecrets_test.yaml
+ PASS  Gateway setup-directories init container securityContext precedence	tyk-stack/tests/initContainerSecurityContext_test.yaml
+ PASS  Portal and dashboard workloads render no null keys (umbrella)	tyk-stack/tests/portalNullKeys_test.yaml
+ PASS  Test priorityClassName for all components	tyk-stack/tests/priorityClassName_test.yaml
+ PASS  Dashboard and pump securityContext enabled flag	tyk-stack/tests/securityContextEnabledDashPump_test.yaml
+2026/08/26 22:12:06 warning: cannot overwrite table with non table for tests.containerSecurityContext.seccompProfile (map[type:RuntimeDefault])
+2026/08/26 22:12:06 warning: cannot overwrite table with non table for tests.containerSecurityContext.capabilities (map[drop:[ALL]])
+ PASS  helm-test Pod securityContext enabled flag	tyk-stack/tests/securityContextEnabledHelmTestPod_test.yaml
+ PASS  Tyk Operator securityContext enabled flag	tyk-stack/tests/securityContextEnabledOperator_test.yaml
+ PASS  Dev Portal securityContext enabled flag	tyk-stack/tests/securityContextEnabledPortal_test.yaml
+
+Charts:      6 passed, 6 total
+Test Suites: 31 passed, 31 total
+Tests:       216 passed, 216 total
+Snapshot:    0 passed, 0 total
+Time:        3.311645792s
+

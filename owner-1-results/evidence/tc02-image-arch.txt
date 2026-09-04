@@ -1,0 +1,14 @@
+busybox:1.32                                         386,amd64,arm,arm64,mips64le,ppc64le,s390x
+curlimages/curl:8.8.0                                386,amd64,arm64,ppc64le
+docker.tyk.io/tyk-gateway/tyk-gateway:v5.13.1        amd64,arm64,s390x
+docker.tyk.io/tyk-pump/tyk-pump:v1.16.0              amd64,arm64
+tykio/portal:v1.18.0                                 amd64,arm64,s390x
+tykio/tyk-dashboard:v5.13.1                          amd64,arm64,s390x
+tykio/tyk-gateway-ee:v5.13.1                         amd64,arm64
+tykio/tyk-k8s-bootstrap-post:v2.2.0                  amd64,arm64
+tykio/tyk-k8s-bootstrap-pre-delete:v2.2.0            amd64,arm64
+tykio/tyk-k8s-bootstrap-pre-install:v2.2.0           amd64,arm64
+tykio/tyk-mdcb-docker:v2.12.0                        amd64,arm64,s390x
+tykio/tyk-operator:v1.4.2                            amd64,arm64
+tykio/tyk-pump-docker-pub:v1.16.0                    amd64,arm64
+zalbiraw/alpine-curl-jq                              amd64,arm64

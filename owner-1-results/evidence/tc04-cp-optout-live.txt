@@ -1,0 +1,3 @@
+dashboard-tyk-cp-tyk-dashboard-6b499f654d-wshcp: podSC={} ctrSC= initSC=
+gateway-tyk-cp-tyk-gateway-95f4b5f58-7jww6: podSC={} ctrSC= initSC=
+mdcb-tyk-cp-tyk-mdcb-6f9bff4d66-qq4dn: podSC={} ctrSC= initSC=

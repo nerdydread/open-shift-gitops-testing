@@ -1,0 +1,3 @@
+POD_SC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+CTR_SC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+IMAGE=tykio/tyk-dashboard:v5.4.0

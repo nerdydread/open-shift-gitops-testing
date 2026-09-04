@@ -1,0 +1,3 @@
+3s          Warning   Failed              pod/gateway-tyk-pin-tyk-gateway-758559d985-fjlbz    Error: container has runAsNonRoot and image will run as root (pod: "gateway-tyk-pin-tyk-gateway-758559d985-fjlbz_tyk-pin(74382838-23de-49e2-832c-684fdbfdfc1f)", container: gateway-tyk-gateway)
+NAME                                           READY   STATUS            RESTARTS   AGE
+gateway-tyk-pin-tyk-gateway-65fbf8d485-ntqb6   0/1     PodInitializing   0          3s

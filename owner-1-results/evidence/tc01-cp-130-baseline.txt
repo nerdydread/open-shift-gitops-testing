@@ -1,0 +1,12 @@
+dashboard-tyk-cp-tyk-dashboard-69b44d85b-q4qsv
+  podSC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+  ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+  image=tykio/tyk-dashboard:v5.13.1
+gateway-tyk-cp-tyk-gateway-77b66845c4-99dfh
+  podSC={"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000}
+  ctrSC={"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}
+  image=tykio/tyk-gateway-ee:v5.13.1
+mdcb-tyk-cp-tyk-mdcb-85cb476487-2jhvv
+  podSC={}
+  ctrSC={}
+  image=tykio/tyk-mdcb-docker:v2.12.0
