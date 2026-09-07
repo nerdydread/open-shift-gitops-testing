@@ -1,0 +1,36 @@
+--- tyk-charts/components/tyk-gateway/values.yaml	2026-09-07 14:23:47
++++ fixtest/components/tyk-gateway/values.yaml	2026-09-07 18:37:29
+@@ -349,7 +349,13 @@
+       # defaults back in.
+       securityContext:
+         enabled: true
+-        runAsUser: 65532
++        # runAsUser is deliberately NOT pinned here. The template resolves it as:
++        #   this block's runAsUser, if you set one
++        #   else gateway.containerSecurityContext.runAsUser, if you set one
++        #   else 65532 (busybox has no USER, and 65532 matches the gateway image)
++        # Pinning it here would make `helm upgrade --reuse-values` from a pre-TT-17018
++        # release produce init=65532 / main=<your old UID>, and the gateway could not
++        # write to the directories the init container created. See D-01.
+         runAsNonRoot: true
+         allowPrivilegeEscalation: false
+         privileged: false
+--- tyk-charts/components/tyk-gateway/templates/deployment-gw-repset.yaml	2026-09-07 14:23:47
++++ fixtest/components/tyk-gateway/templates/deployment-gw-repset.yaml	2026-09-07 18:37:29
+@@ -110,6 +110,16 @@
+         {{- $mainSc := .Values.gateway.containerSecurityContext }}
+         {{- $initOn := and $initSc (or (not (hasKey ($initSc | default dict) "enabled")) $initSc.enabled) }}
+         {{- $mainOn := and $mainSc (or (not (hasKey ($mainSc | default dict) "enabled")) $mainSc.enabled) }}
++        {{- /* TT-17018 D-01: resolve the init UID — own value, else the main container's,
++               else 65532. Keeps the init container aligned with whatever UID the gateway
++               actually runs as, including a UID carried forward by --reuse-values. */ -}}
++        {{- if and $initOn (gt (len (omit $initSc "enabled")) 0) (not (hasKey ($initSc | default dict) "runAsUser")) }}
++          {{- $inherited := 65532 }}
++          {{- if and $mainOn (hasKey ($mainSc | default dict) "runAsUser") }}
++            {{- $inherited = $mainSc.runAsUser }}
++          {{- end }}
++          {{- $initSc = merge (omit $initSc "enabled") (dict "runAsUser" $inherited) }}
++        {{- end }}
+         {{- if and $initOn (gt (len (omit $initSc "enabled")) 0) }}
+         securityContext:
+         {{- toYaml (omit $initSc "enabled") | nindent 12 }}
