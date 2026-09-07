@@ -1,0 +1,3 @@
+ServiceAccount/k8s-bootstrap-role  sync-wave=-1
+Role/k8s-bootstrap-role  sync-wave=-1
+RoleBinding/k8s-bootstrap-role  sync-wave=-1

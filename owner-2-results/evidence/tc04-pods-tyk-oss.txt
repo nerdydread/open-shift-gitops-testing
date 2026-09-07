@@ -1,0 +1,4 @@
+NAME                                       READY   STATUS            RESTARTS   AGE   IP            NODE                                        NOMINATED NODE   READINESS GATES
+gateway-tyk-tyk-gateway-5849f9b544-58vpl   0/1     PodInitializing   0          6s    10.128.0.16   ip-10-0-38-185.us-east-2.compute.internal   <none>           <none>
+pump-tyk-tyk-pump-5fc455876d-29ndx         1/1     Running           0          6s    10.128.2.34   ip-10-0-34-230.us-east-2.compute.internal   <none>           <none>
+redis-master-0                             1/1     Running           0          43s   10.129.2.22   ip-10-0-16-97.us-east-2.compute.internal    <none>           <none>

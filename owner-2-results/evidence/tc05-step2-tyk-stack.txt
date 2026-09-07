@@ -1,0 +1,3 @@
+915:    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+916:    "helm.sh/hook": test
+975:    "helm.sh/hook": test

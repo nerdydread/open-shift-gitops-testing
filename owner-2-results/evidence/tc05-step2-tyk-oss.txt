@@ -1,0 +1,4 @@
+281:    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+282:    "helm.sh/hook": test
+431:    "helm.sh/hook": test
+432:    "helm.sh/hook-delete-policy": hook-succeeded

@@ -1,0 +1,4 @@
+image=curlimages/curl:8.8.0
+podSC={}
+ctrSC=
+succeeded=1

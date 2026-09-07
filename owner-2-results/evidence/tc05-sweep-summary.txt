@@ -1,0 +1,47 @@
+########## TC-05 Step 1 — null-key sweep (pass = no output) ##########
+tyk-oss              PASS     no null keys  (render 13441L)
+tyk-stack            PASS     no null keys  (render 30340L)
+tyk-control-plane    PASS     no null keys  (render 28777L)
+tyk-data-plane       PASS     no null keys  (render 16285L)
+
+########## TC-05 Step 1b — same, pump+devPortal+operator enabled ##########
+tyk-oss              PASS     no null keys  (render 26950L)
+tyk-stack            PASS     no null keys  (render 46704L)
+tyk-control-plane    PASS     no null keys  (render 49642L)
+tyk-data-plane       PASS     no null keys  (render 16285L)
+
+########## TC-05 Step 2 — hook annotations (pass = no output) ##########
+tyk-oss              SEE      4 hits (2 non-test)
+      281:    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+      282:    "helm.sh/hook": test
+      431:    "helm.sh/hook": test
+      432:    "helm.sh/hook-delete-policy": hook-succeeded
+tyk-stack            SEE      3 hits (2 non-test)
+      915:    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+      916:    "helm.sh/hook": test
+      975:    "helm.sh/hook": test
+tyk-control-plane    PASS     no hook annotations
+tyk-data-plane       SEE      3 hits (2 non-test)
+      466:    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+      467:    "helm.sh/hook": test
+      525:    "helm.sh/hook": test
+
+########## TC-05 Step 3 — pre-delete Job (pass = no output) ##########
+tyk-oss              PASS     no pre-delete
+tyk-stack            PASS     no pre-delete
+tyk-control-plane    PASS     no pre-delete
+tyk-data-plane       PASS     no pre-delete
+
+########## TC-05 Step 4 — annotation quoting (pass = all quoted) ##########
+tyk-oss              n/a      no bootstrap in this umbrella
+tyk-stack            PASS     4/4 quoted
+      727:    argocd.argoproj.io/sync-wave: "-1"
+      796:    argocd.argoproj.io/sync-wave: "-1"
+      841:    argocd.argoproj.io/sync-wave: "-1"
+      1076:    argocd.argoproj.io/sync-wave: "-1"
+tyk-control-plane    PASS     4/4 quoted
+      763:    argocd.argoproj.io/sync-wave: "-1"
+      774:    argocd.argoproj.io/sync-wave: "-1"
+      819:    argocd.argoproj.io/sync-wave: "-1"
+      997:    argocd.argoproj.io/sync-wave: "-1"
+tyk-data-plane       n/a      no bootstrap in this umbrella

@@ -1,0 +1,1 @@
+provider restricted-v2: .initContainers[0].runAsUser: Invalid value: 65532: must be in the ranges: [1009560000

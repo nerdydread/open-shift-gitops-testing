@@ -1,0 +1,26 @@
+NAME: tyk
+LAST DEPLOYED: Mon Sep  7 16:19:34 2026
+NAMESPACE: tyk-boot
+STATUS: deployed
+REVISION: 1
+NOTES:
+Thank you for installing Tyk Stack Chart. Your release is named tyk.
+
+NOTE:
+Tyk Dashboard connects to Tyk Gateway at http://gateway-svc-tyk-tyk-gateway.tyk-boot.svc over port 8080 for key management functions.
+    Please double check if Tyk Gateway runs on this address. If not, Tyk Gateway host and Tyk Gateway port can be overridden
+        through .tyk-dashboard.dashboard.tykApiHost and .tyk-dashboard.dashboard.tykApiPort fields respectively in values.yaml.
+
+To quickly test everything is ok, you can port-forward Tyk Gateway pod:
+    kubectl port-forward --namespace tyk-boot service/gateway-svc-tyk-tyk-gateway 8080:8080
+    curl localhost:8080/hello
+
+=== Tyk Dashboard Login Details ===
+    export TYK_DASHBOARD_ADMINEMAIL=default@example.com
+    export TYK_DASHBOARD_ADMINPASSWORD=$(kubectl get secret --namespace tyk-boot tyk-dashboard-login-details -o jsonpath="{.data.adminUserPassword}" | base64 --decode)
+
+===================================================
+  Manage Ingress resources and APIs on Kubernetes
+===================================================
+You might want to install Tyk Operator next to manage Ingress resources or manage your APIs.
+Please check Tyk Operator documentation at https://tyk.io/docs/tyk-operator/

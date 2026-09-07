@@ -1,0 +1,3 @@
+gateway-tyk-tyk-gateway-7f7f85d567-5fvjh   1/1   Running   0     8s
+pump-tyk-tyk-pump-5bb7bfdf9b-jjpsj         1/1   Running   0     8s
+redis-master-0                             1/1   Running   0     40s

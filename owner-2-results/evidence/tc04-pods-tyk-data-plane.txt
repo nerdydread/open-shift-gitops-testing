@@ -1,0 +1,4 @@
+NAME                                       READY   STATUS    RESTARTS   AGE   IP            NODE                                        NOMINATED NODE   READINESS GATES
+gateway-tyk-tyk-gateway-7f7f85d567-5fvjh   1/1     Running   0          4s    10.131.0.29   ip-10-0-44-51.us-east-2.compute.internal    <none>           <none>
+pump-tyk-tyk-pump-5bb7bfdf9b-jjpsj         1/1     Running   0          4s    10.128.2.32   ip-10-0-34-230.us-east-2.compute.internal   <none>           <none>
+redis-master-0                             1/1     Running   0          36s   10.129.2.21   ip-10-0-16-97.us-east-2.compute.internal    <none>           <none>

@@ -1,0 +1,1 @@
+imagePullSecrets=qa-regcred k8s-bootstrap-role-dockercfg-2cm25

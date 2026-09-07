@@ -1,0 +1,3 @@
+bootstrap-pre-install-tyk-tyk-bootstrap-s9phf   0/1     Error     0          25s
+bootstrap-pre-install-tyk-tyk-bootstrap   Failed   0/1           26s        26s
+  backoffLimit=0 failed=1 succeeded=

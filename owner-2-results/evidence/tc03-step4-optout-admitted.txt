@@ -1,0 +1,6 @@
+pod/scc-probe-optout created
+scc=restricted-v2
+fsGroup=1009560000
+runAsUser=1009560000
+seLinux=s0:c98,c27
+phase=Running

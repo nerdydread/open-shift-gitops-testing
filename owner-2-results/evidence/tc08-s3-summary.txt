@@ -1,0 +1,48 @@
+########## TC-08 Step 3 — tier 1: secretRef.name set, WITH useSecretName also set ##########
+(proves secretRef takes precedence — the Crossplane case)
+- name: PORTAL_S3_AWS_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      name: crossplane-s3
+      key: "CROSSPLANE_AKID"
+- name: PORTAL_S3_AWS_SECRET_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      name: crossplane-s3
+      key: "CROSSPLANE_SAK"
+--- assertions ---
+  [ok]   secretRef.name wins over useSecretName
+  [ok]   custom accessKeyIdKey used
+  [ok]   custom secretAccessKeyKey used
+  [ok]   useSecretName correctly superseded
+
+########## TC-08 Step 4 — tier 2: secretRef.name EMPTY, useSecretName set ##########
+- name: PORTAL_S3_AWS_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      name: legacy-portal-secret
+      key: "DevPortalAwsAccessKeyId"
+- name: PORTAL_S3_AWS_SECRET_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      name: legacy-portal-secret
+      key: "DevPortalAwsSecretAccessKey"
+--- assertions ---
+  [ok]   falls back to useSecretName
+  [ok]   default key names restored
+  null keys: 0
+  empty name/key: 0
+
+########## TC-08 Step 4b — tier 3: neither set (chart's own secret) ##########
+- name: PORTAL_S3_AWS_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      name: secrets-t-tyk-dev-portal
+      key: "DevPortalAwsAccessKeyId"
+- name: PORTAL_S3_AWS_SECRET_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      name: secrets-t-tyk-dev-portal
+      key: "DevPortalAwsSecretAccessKey"
+  [ok]   falls back to the chart's own secret
+  null keys: 0

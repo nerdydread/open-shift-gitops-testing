@@ -1,0 +1,4 @@
+727:    argocd.argoproj.io/sync-wave: "-1"
+796:    argocd.argoproj.io/sync-wave: "-1"
+841:    argocd.argoproj.io/sync-wave: "-1"
+1076:    argocd.argoproj.io/sync-wave: "-1"

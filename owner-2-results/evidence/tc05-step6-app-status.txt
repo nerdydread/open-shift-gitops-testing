@@ -1,0 +1,4 @@
+sync=Synced
+health=Progressing
+phase=Succeeded
+msg=successfully synced (all tasks run)

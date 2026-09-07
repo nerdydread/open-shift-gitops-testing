@@ -1,0 +1,3 @@
+name=TYK_GW_SLAVEOPTIONS_CONNECTIONSTRING
+value=mdcb-svc-tyk-tyk-mdcb.tyk-qa.svc:9091
+fromSecret=/

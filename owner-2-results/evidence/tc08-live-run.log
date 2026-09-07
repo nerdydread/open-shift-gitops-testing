@@ -1,0 +1,54 @@
+
+########## S5 gate ##########
+  whoami=developer  anyuid=no
+  ns=tyk-portal band=1001140000..1001149999
+
+########## infra ##########
+  redis rc=0
+  postgres rc=0
+
+########## Step 1 prep — a Secret and a ConfigMap for extraEnvs to resolve from ##########
+  secret/portal-extra + configmap/portal-extra created
+
+########## install tyk-stack with devPortal=true, opt-out file, and TC-08 overrides ##########
+  install rc=0
+  Manage Ingress resources and APIs on Kubernetes
+===================================================
+You might want to install Tyk Operator next to manage Ingress resources or manage your APIs.
+Please check Tyk Operator documentation at https://tyk.io/docs/tyk-operator/
+NAME                                          READY   STATUS      RESTARTS   AGE     IP            NODE                                        NOMINATED NODE   READINESS GATES
+dashboard-tyk-tyk-dashboard-f749d4f94-7hm5b   1/1     Running     0          85s     10.131.0.31   ip-10-0-44-51.us-east-2.compute.internal    <none>           <none>
+dev-portal-job-tyk-tyk-dev-portal-6w2zr       0/1     Completed   0          85s     10.131.0.32   ip-10-0-44-51.us-east-2.compute.internal    <none>           <none>
+gateway-tyk-tyk-gateway-7ccc4ff858-8rxvp      1/1     Running     0          85s     10.128.0.20   ip-10-0-38-185.us-east-2.compute.internal   <none>           <none>
+portal-tyk-tyk-dev-portal-0                   1/1     Running     0          85s     10.128.2.46   ip-10-0-34-230.us-east-2.compute.internal   <none>           <none>
+pump-tyk-tyk-pump-6b77548fd9-qgtqq            1/1     Running     0          85s     10.128.2.45   ip-10-0-34-230.us-east-2.compute.internal   <none>           <none>
+redis-master-0                                1/1     Running     0          2m33s   10.128.2.41   ip-10-0-34-230.us-east-2.compute.internal   <none>           <none>
+tyk-postgres-postgresql-0                     1/1     Running     0          118s    10.129.2.23   ip-10-0-16-97.us-east-2.compute.internal    <none>           <none>
+
+########## Step 1 — extraEnvs resolve AT RUNTIME (render alone does not prove resolution) ##########
+portal pod: dev-portal-job-tyk-tyk-dev-portal-6w2zr
+
+########## Step 6 — PVC bound and WRITABLE under the opt-out (fsGroup comes from the SCC) ##########
+NAME                                                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-tyk-postgres-postgresql-0                                  Bound    pvc-e48c3017-7f2c-4893-8e31-ccc8c3a264aa   8Gi        RWO            gp3            <unset>                 119s
+dev-portal-pvc-tyk-tyk-dev-portal-portal-tyk-tyk-dev-portal-0   Bound    pvc-b14c3058-32de-4f29-9ef7-28227017b879   8Gi        RWO            gp3            <unset>                 86s
+redis-data-redis-master-0                                       Bound    pvc-9023b1f9-f796-41e1-b732-0cf1d772e0a9   8Gi        RWO            gp3            <unset>                 2m34s
+  fsGroup on portal pod: 1001140000
+  scc:                   restricted-v2
+  mount path:            /var/run/secrets/kubernetes.io/serviceaccount
+error: cannot exec into a container in a completed pod; current phase is Succeeded
+
+########## Step 5 — bootstrapJob: overridden image + securityContext disabled ##########
+NAME                                STATUS     COMPLETIONS   DURATION   AGE
+dev-portal-job-tyk-tyk-dev-portal   Complete   1/1           78s        88s
+portal bootstrap pods and their SCC:
+
+########## summary ##########
+dashboard-tyk-tyk-dashboard-f749d4f94-7hm5b   1/1   Running     0     88s
+dev-portal-job-tyk-tyk-dev-portal-6w2zr       0/1   Completed   0     88s
+gateway-tyk-tyk-gateway-7ccc4ff858-8rxvp      1/1   Running     0     88s
+portal-tyk-tyk-dev-portal-0                   1/1   Running     0     88s
+pump-tyk-tyk-pump-6b77548fd9-qgtqq            1/1   Running     0     88s
+redis-master-0                                1/1   Running     0     2m36s
+tyk-postgres-postgresql-0                     1/1   Running     0     2m1s
+not Running/Completed: 0

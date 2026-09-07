@@ -1,0 +1,13 @@
+time="2026-09-07T20:06:21Z" level=info msg="Set the log level" fields.level=info
+time="2026-09-07T20:06:26Z" level=info msg="There are 5 other pods in the cluster" Client=Kubernetes
+time="2026-09-07T20:06:26Z" level=info msg="Pod: dashboard-tyk-tyk-dashboard-64d6768b44-c2j65 has containers that are NOT ready" Client=Kubernetes
+time="2026-09-07T20:06:28Z" level=info msg="There are 5 other pods in the cluster" Client=Kubernetes
+time="2026-09-07T20:06:28Z" level=info msg="Pod: dashboard-tyk-tyk-dashboard-64d6768b44-c2j65 has containers that are NOT ready" Client=Kubernetes
+time="2026-09-07T20:06:30Z" level=info msg="There are 5 other pods in the cluster" Client=Kubernetes
+time="2026-09-07T20:06:30Z" level=info msg="Pod: dashboard-tyk-tyk-dashboard-64d6768b44-c2j65 has containers that are NOT ready" Client=Kubernetes
+time="2026-09-07T20:06:32Z" level=info msg="There are 5 other pods in the cluster" Client=Kubernetes
+time="2026-09-07T20:06:32Z" level=info msg="Pod: dashboard-tyk-tyk-dashboard-64d6768b44-c2j65 has containers that are NOT ready" Client=Kubernetes
+time="2026-09-07T20:06:34Z" level=info msg="There are 5 other pods in the cluster" Client=Kubernetes
+time="2026-09-07T20:06:34Z" level=info msg="All Pods are ready" Client=Kubernetes
+time="2026-09-07T20:06:34Z" level=info msg="Bootstrapping Tyk Dashboard"
+time="2026-09-07T20:06:34Z" level=info msg="Creating Kubernetes Secret for Tyk Operator" secretName=tyk-operator-conf
