@@ -1,0 +1,4 @@
+tyk-oss              481L       4              0              meaningful
+tyk-stack            1107L      21             8              meaningful
+tyk-control-plane    1028L      18             8              meaningful
+tyk-data-plane       574L       3              0              meaningful

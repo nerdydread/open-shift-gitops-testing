@@ -1,0 +1,5 @@
+STATUS: deployed
+REVISION: 3
+image=curlimages/curl:8.10.1
+imagePullSecrets=
+succeeded=

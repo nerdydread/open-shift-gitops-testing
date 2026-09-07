@@ -1,0 +1,3 @@
+fromSecret=mdcb-conn-live/mdcbUrl
+resolved=mdcb-svc-tyk-tyk-mdcb.tyk-qa.svc:9091
+gateway-tyk-tyk-gateway-6c5f4c5598-xg2l2   1/1   Running   0     13s

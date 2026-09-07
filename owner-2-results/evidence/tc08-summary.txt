@@ -1,0 +1,25 @@
+########## TC-08 Step 2 — extraEnvs with plain value: (backwards compat) ##########
+- name: QA_PLAIN_ENV
+  value: tt17018
+- name: QA_SECOND
+  value: still-works
+-> PASS: both plain-value entries render unchanged
+
+########## TC-08 Step 3 — s3.secretRef custom keys + precedence over useSecretName ##########
+--- S3 credential env entries ---
+[]
+--- assertions ---
+  [FAIL] secretRef.name not used
+  [FAIL] custom accessKeyIdKey not used
+  [FAIL] custom secretAccessKeyKey not used
+  [note] legacy-portal-secret still referenced — checking it is NOT for the S3 keys:
+- PORTAL_LICENSEKEY
+- PORTAL_DATABASE_CONNECTIONSTRING
+
+########## TC-08 Step 4 — fallback chain, secretRef.name empty ##########
+--- S3 credential env entries ---
+[]
+--- assertions ---
+  [ok] falls back to useSecretName
+  null keys in portal env: 0  [ok]
+  empty secretKeyRef entries: 0  [ok]

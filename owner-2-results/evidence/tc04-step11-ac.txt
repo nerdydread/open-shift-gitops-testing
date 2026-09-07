@@ -1,0 +1,48 @@
+############ TC-04 STEP 11 — HEADLINE ACCEPTANCE CRITERION ############
+Cluster: https://api.tt17018-qa.s3hn.p1.openshiftapps.com:6443
+User:    developer  ·  anyuid=no
+Date:    2026-09-07T20:08:20Z
+
+--- tyk-control-plane  (ns tyk-qa, band 1001070000..1001079999) ---
+  1. fsGroup patch still needed?                 NO — SCC injects it, chart pins none
+  2. init-container UID patch needed?            NO — chart pins none, all pods up
+  3. op:remove null-key workaround?              NO — zero null keys, live and rendered
+     pods not on restricted-v2:                  0
+
+--- tyk-stack  (ns tyk-stack, band 1001080000..1001089999) ---
+  1. fsGroup patch still needed?                 NO — SCC injects it, chart pins none
+  2. init-container UID patch needed?            NO — chart pins none, all pods up
+  3. op:remove null-key workaround?              NO — zero null keys, live and rendered
+     pods not on restricted-v2:                  0
+
+--- tyk-data-plane  (ns tyk-dp, band 1001100000..1001109999) ---
+  1. fsGroup patch still needed?                 NO — SCC injects it, chart pins none
+  2. init-container UID patch needed?            NO — chart pins none, all pods up
+  3. op:remove null-key workaround?              NO — zero null keys, live and rendered
+     pods not on restricted-v2:                  0
+
+--- tyk-oss  (ns tyk-oss, band 1001120000..1001129999) ---
+  1. fsGroup patch still needed?                 NO — SCC injects it, chart pins none
+  2. init-container UID patch needed?            NO — chart pins none, all pods up
+  3. op:remove null-key workaround?              NO — zero null keys, live and rendered
+     pods not on restricted-v2:                  0
+
+############ ROW 4 — anything else needed to make it install ############
+  Kustomize patches against Tyk components: 0
+  Non-Tyk workarounds required:
+    * bitnami/redis      — master.{pod,container}SecurityContext.enabled=false  (pins UID 1001)
+    * bitnami/postgresql — primary.{pod,container}SecurityContext.enabled=false (pins UID 1001)
+  Both are SEPARATE HELM RELEASES, not Tyk chart dependencies. Gap #8; feeds section 8 Q2.
+
+############ AGGREGATE ############
+  chart-pinned fsGroup/runAsUser lines : 0
+  SCC-injected fsGroups                : 17  (outside band: 0)
+  null keys  live / rendered           : 0 / 0
+  pods not Running/Completed           : 0
+  pods not on restricted-v2            : 0
+
+  VERDICT: PASS — four umbrellas installed on OpenShift with zero Kustomize patches
+           against Tyk components. All three customer patch categories: NO LONGER NEEDED.
+
+  SCOPE LIMIT, state at sign-off: ONE ROSA cluster, single pipeline. Proves the chart needs
+  no patches on OpenShift; proves nothing about the customer's own Kustomize overlays.

@@ -1,0 +1,7 @@
+POD                                                  SCC              FSGROUP      INBAND
+dashboard-tyk-tyk-dashboard-64fb57d75f-b9kvx         restricted-v2    1001070000   yes
+gateway-tyk-tyk-gateway-687db8998b-bl7ck             restricted-v2    1001070000   yes
+mdcb-tyk-tyk-mdcb-bd57f8db7-c2ws7                    restricted-v2    1001070000   yes
+pump-tyk-tyk-pump-548cf8d577-fqjzz                   restricted-v2    1001070000   yes
+redis-master-0                                       restricted-v2    1001070000   yes
+tyk-postgres-postgresql-0                            restricted-v2    1001070000   yes

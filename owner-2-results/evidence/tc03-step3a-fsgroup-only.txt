@@ -1,0 +1,1 @@
+provider restricted-v2: .spec.securityContext.fsGroup: Invalid value: [2000]: 2000 is not an allowed group

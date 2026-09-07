@@ -1,0 +1,1 @@
+time="2026-09-07T20:06:12Z" level=info msg="Pre-install Hook bootstrapping succeeded, the provided license is valid!"

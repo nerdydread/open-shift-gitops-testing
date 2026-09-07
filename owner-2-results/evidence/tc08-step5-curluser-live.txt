@@ -1,0 +1,5 @@
+phase=Succeeded
+scc=restricted-v2
+injectedRunAsUser=1001140000
+reason=Completed
+msg=

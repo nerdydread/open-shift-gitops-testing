@@ -1,0 +1,41 @@
+- name: PORTAL_LICENSEKEY
+  valueFrom:
+    secretKeyRef:
+      name: secrets-t-tyk-dev-portal
+      key: DevPortalLicense
+- name: PORTAL_HOST_PORT
+  value: "3001"
+- name: ADMIN_EMAIL
+  value: "default@example.com"
+- name: ADMIN_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: secrets-t-tyk-dev-portal
+      key: adminUserPassword
+- name: PORTAL_STORAGE
+  value: "db"
+- name: PORTAL_DATABASE_DIALECT
+  value: "sqlite3"
+- name: PORTAL_DATABASE_CONNECTIONSTRING
+  valueFrom:
+    secretKeyRef:
+      name: secrets-t-tyk-dev-portal
+      key: "DevPortalDatabaseConnectionString"
+- name: PORTAL_DATABASE_ENABLELOGS
+  value: "false"
+- name: PORTAL_DATABASE_MAXRETRIES
+  value: "3"
+- name: PORTAL_DATABASE_RETRYDELAY
+  value: "5000"
+- name: PORTAL_THEMING_PATH
+  value: "./themes"
+- name: PORTAL_THEMING_THEME
+  value: "default"
+- name: PROVIDER_NAME
+  value: "tyk"
+- name: TYK_URL
+  value: "http://dashboard-svc-t-tyk-dashboard.default.svc:3000"
+- name: QA_PLAIN_ENV
+  value: tt17018
+- name: QA_SECOND
+  value: still-works

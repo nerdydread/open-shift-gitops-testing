@@ -1,0 +1,36 @@
+RESOURCE                                       WAVE     CREATED
+RoleBinding/admin-dedicated-admins             0        2026-09-07T20:24:37Z
+RoleBinding/admin                              0        2026-09-07T20:24:37Z
+RoleBinding/alert-routing-edit-dedicated-admins 0        2026-09-07T20:24:37Z
+RoleBinding/dedicated-admins-project-dedicated-admins 0        2026-09-07T20:24:37Z
+RoleBinding/dedicated-admins-project-system:serviceaccounts:dedicated-admin 0        2026-09-07T20:24:37Z
+RoleBinding/system:deployers                   0        2026-09-07T20:24:37Z
+RoleBinding/system:image-builders              0        2026-09-07T20:24:37Z
+RoleBinding/system:image-pullers               0        2026-09-07T20:24:37Z
+ServiceAccount/builder                         0        2026-09-07T20:24:37Z
+ServiceAccount/default                         0        2026-09-07T20:24:37Z
+ServiceAccount/deployer                        0        2026-09-07T20:24:37Z
+RoleBinding/admin-system:serviceaccounts:dedicated-admin 0        2026-09-07T20:24:38Z
+ServiceAccount/redis-master                    0        2026-09-07T20:24:40Z
+ServiceAccount/tyk-postgres-postgresql         0        2026-09-07T20:25:17Z
+Role/openshift-gitops-argocd-application-controller 0        2026-09-07T20:28:06Z
+Role/openshift-gitops-argocd-server            0        2026-09-07T20:28:06Z
+RoleBinding/openshift-gitops-argocd-application-controller 0        2026-09-07T20:28:06Z
+RoleBinding/openshift-gitops-argocd-server     0        2026-09-07T20:28:06Z
+Role/k8s-bootstrap-role                        -2       2026-09-07T20:28:47Z
+ServiceAccount/k8s-bootstrap-role              -2       2026-09-07T20:28:47Z
+RoleBinding/k8s-bootstrap-role                 -2       2026-09-07T20:28:48Z
+Job/bootstrap-pre-install-tyk-control-plane-tyk-bootstrap -1       2026-09-07T20:28:50Z
+Deployment/dashboard-tyk-control-plane-tyk-dashboard 0        2026-09-07T20:28:55Z
+Deployment/gateway-tyk-control-plane-tyk-gateway 0        2026-09-07T20:28:55Z
+Deployment/mdcb-tyk-control-plane-tyk-mdcb     0        2026-09-07T20:28:55Z
+Job/bootstrap-post-install-tyk-control-plane-tyk-bootstrap 0        2026-09-07T20:28:55Z
+bootstrap-post-install-tyk-control-plane-tyk-bootstrap  completions=1  completedAt=2026-09-07T20:29:12Z
+bootstrap-pre-install-tyk-control-plane-tyk-bootstrap  completions=1  completedAt=2026-09-07T20:28:54Z
+bootstrap-post-install-tyk-control-plane-tyk-bootstrap-v2plf   0/1   Completed   0     33s
+bootstrap-pre-install-tyk-control-plane-tyk-bootstrap-c6vtp    0/1   Completed   0     38s
+dashboard-tyk-control-plane-tyk-dashboard-77ddf6bfcd-h69bs     1/1   Running     0     33s
+gateway-tyk-control-plane-tyk-gateway-6d5db5cfc9-wj269         1/1   Running     0     33s
+mdcb-tyk-control-plane-tyk-mdcb-576dc87c64-8b7ts               1/1   Running     0     33s
+redis-master-0                                                 1/1   Running     0     4m47s
+tyk-postgres-postgresql-0                                      1/1   Running     0     4m11s

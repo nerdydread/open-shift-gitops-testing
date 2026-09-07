@@ -1,0 +1,4 @@
+POD                                                  SCC              FSGROUP      INBAND
+gateway-tyk-tyk-gateway-5849f9b544-58vpl             restricted-v2    1001120000   yes
+pump-tyk-tyk-pump-5fc455876d-29ndx                   restricted-v2    1001120000   yes
+redis-master-0                                       restricted-v2    1001120000   yes

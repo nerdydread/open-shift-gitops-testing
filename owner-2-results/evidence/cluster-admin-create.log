@@ -1,0 +1,7 @@
+INFO: Admin account has been added to cluster 'tt17018-qa'.
+INFO: Please securely store this generated password. If you lose this password you can delete and recreate the cluster admin user.
+INFO: To login, run the following command:
+
+   oc login https://api.tt17018-qa.s3hn.p1.openshiftapps.com:6443 --username cluster-admin --password <REDACTED-PASSWORD>
+
+INFO: It may take several minutes for this access to become active.

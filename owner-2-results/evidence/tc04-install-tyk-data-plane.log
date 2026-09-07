@@ -1,0 +1,21 @@
+NAME: tyk
+LAST DEPLOYED: Mon Sep  7 16:07:17 2026
+NAMESPACE: tyk-dp
+STATUS: deployed
+REVISION: 1
+NOTES:
+Thank you for installing Tyk Data Plane Chart. Your release is named tyk.
+At this point, Tyk Data Plane is fully installed and should be accessible.
+
+To quickly test everything is ok, you can port-forward gateway pod to 8080 on your machine :
+    kubectl port-forward service/gateway-svc-tyk-tyk-gateway 8080:8080
+    curl localhost:8080/hello
+
+=== API Secret (TYK_GW_SECRET) ===
+    export TYK_GW_SECRET=$(kubectl get secret --namespace tyk-dp secrets-tyk-tyk-data-plane -o jsonpath="{.data.APISecret}" | base64 --decode)
+
+===================================================
+  Manage Ingress resources and APIs on Kubernetes
+===================================================
+You might want to install Tyk Operator next to manage Ingress resources or manage your APIs.
+Please check Tyk Operator documentation at https://tyk.io/docs/tyk-operator/

@@ -1,0 +1,56 @@
+Pulled: registry-1.docker.io/bitnamicharts/redis:28.0.15
+Digest: sha256:0c2e262d4805e78815f3cbd6562eaa84868f079384a74e54dd7b055fa8fb88c2
+NAME: redis
+LAST DEPLOYED: Mon Sep  7 16:07:29 2026
+NAMESPACE: tyk-oss
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+CHART NAME: redis
+CHART VERSION: 28.0.15
+APP VERSION: 8.10.1
+
+⚠ WARNING: Since August 28th, 2025, only a limited subset of images/charts are available for free.
+    Subscribe to Bitnami Secure Images to receive continued support and security updates.
+    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267
+
+** Please be patient while the chart is being deployed **
+
+Redis(R) can be accessed via port 6379 on the following DNS name from within your cluster:
+
+    redis-master.tyk-oss.svc.cluster.local
+
+To connect to your Redis(R) server:
+
+1. Run a Redis(R) pod that you can use as a client:
+
+   kubectl run --namespace tyk-oss redis-client --restart='Never'  --image registry-1.docker.io/bitnami/redis:latest --command -- sleep infinity
+
+   Use the following command to attach to the pod:
+
+   kubectl exec --tty -i redis-client \
+   --namespace tyk-oss -- bash
+
+2. Connect using the Redis(R) CLI:
+   redis-cli -h redis-master
+
+To connect to your database from outside the cluster execute the following commands:
+
+    kubectl port-forward --namespace tyk-oss svc/redis-master 6379:6379 &
+    redis-cli -h 127.0.0.1 -p 6379
+WARNING: Rolling tag detected (bitnami/redis:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/redis-sentinel:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/redis-exporter:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/os-shell:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/os-shell:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+
+WARNING: There are "resources" sections in the chart not set. Using "resourcesPreset" is not recommended for production. For production installations, please set the following values according to your workload needs:
+  - replica.resources
+  - master.resources
++info https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/

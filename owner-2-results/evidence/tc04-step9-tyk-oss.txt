@@ -1,0 +1,3 @@
+gateway-tyk-tyk-gateway-5849f9b544-58vpl   0/1   PodInitializing   0     10s
+pump-tyk-tyk-pump-5fc455876d-29ndx         1/1   Running           0     10s
+redis-master-0                             1/1   Running           0     47s

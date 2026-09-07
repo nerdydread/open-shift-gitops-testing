@@ -1,0 +1,5 @@
+bootstrap-pre-install-tyk-tyk-bootstrap-74zpp   0/1     Error     0          87s
+bootstrap-pre-install-tyk-tyk-bootstrap-bp44d   0/1     Error     0          98s
+bootstrap-pre-install-tyk-tyk-bootstrap-spfzj   0/1     Error     0          27s
+bootstrap-pre-install-tyk-tyk-bootstrap-w85ws   0/1     Error     0          67s
+  backoffLimit=3 failed=4 succeeded=

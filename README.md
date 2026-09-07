@@ -1,5 +1,17 @@
 # TT-17018 — QA workstreams (2 owners)
 
+> ## ✅ Status: 2026-09-07 — **all QA testing complete. 10 of 14 sign-off rows closed.**
+>
+> Both owners tested `39957f3660212154296b6ffc9ab733f822e6809d`.
+> **Nothing outstanding requires a cluster, a licence, or QA time** — the four open rows need
+> three decisions and two pieces of writing. See **[What's left](#whats-left--nothing-here-needs-a-cluster)**.
+>
+> Results: [`owner-1-results/`](owner-1-results/README.md) · [`owner-2-results/`](owner-2-results/README.md)
+>
+> *The planning content below is preserved as written for the record — the calendar, effort estimates
+> and day-0 checklist describe the plan going in, not what happened. Owner 2's five-day packet
+> completed in one day, because most of its budget was discovery that turned out to be render work.*
+
 Companion to `TT-17018-test-plan.md`. That document is the authority
 on *what* and *why*. This directory splits it into **two packets** that two people can own and run
 without blocking each other.
@@ -113,25 +125,31 @@ Shared inputs. Without them, several tests produce results that can't be aggrega
 
 ## Sign-off tracker
 
-The master plan's §6 checklist with an owner against every row. Release into Charts 5.4.0 when each
-row is green **and** its owner has attached evidence against the day-0 SHA.
+**Status 2026-09-07 — 10 of 14 rows closed. All QA testing is complete.**
+
+Both owners tested the same tree, `39957f3660212154296b6ffc9ab733f822e6809d`, so the evidence
+aggregates. The four open rows need **decisions and writing, not tests** — see
+[What's left](#whats-left--nothing-here-needs-a-cluster) below.
+
+Evidence: [`owner-1-results/`](owner-1-results/README.md) (kind & render) ·
+[`owner-2-results/`](owner-2-results/README.md) (OpenShift).
 
 | # | Sign-off item | Owner | P0 | Status |
 |---|---|---|:--:|:--:|
-| 1 | TC-01 passes on k8s 1.26 and 1.30 for `tyk-oss`, `tyk-data-plane`, `tyk-stack`, with and without `--reuse-values` | 1 | ● | ☐ |
-| 2 | TC-02 outcome documented, pinned-old-tag decision explicitly made | 1 → team | ● | ☐ |
-| 3 | TC-03 reproduced by QA on a real, unprivileged OpenShift cluster | 2 | ● | ☐ |
-| 4 | TC-04 all four umbrellas; three values files **authored and TC-04 passing with them**; gap #9 resolved — see note | 1 + 2 | ● | ☐ |
-| 5 | TC-05 passes through a real ArgoCD instance, not just `helm template` | 2 | | ☐ |
-| 6 | TC-06 incl. the `useSecretName` + literal `connectionString` upgrade regression | 1 + 2 | | ☐ |
-| 7 | TC-07 bootstrap verified **executing**, incl. an auth-requiring registry with a negative control | 2 | | ☐ |
-| 8 | TC-08 dev portal verified **running** with all three new config paths | 2 | | ☐ |
-| 9 | TC-09 green on merged `main`, **with the anti-vacuity revert check done** | 1 | | ☐ |
-| 10 | TC-10 zero field leaks under **server-side** dry-run | 1 | | ☐ |
-| 11 | TC-11 green on k8s **1.26 and 1.30** (the ends; middle versions only if they disagree) | 1 | ● | ☐ |
-| 12 | **Headline AC proven by QA** — four umbrellas installed on OpenShift with zero Kustomize patches on Tyk components, and the customer's three known patch categories confirmed unnecessary *(replaces TC-12)* | 2 | | ☐ |
-| 13 | Upgrade release note reviewed and published in the 5.4.0 changelog | 1 | | ☐ |
-| 14 | OpenShift docs cover the `enabled: false` opt-out (and why `{}` doesn't work), the Redis/PostgreSQL caveat, and the per-component image-tag boundary | 1 + 2 | | ☐ |
+| 1 | TC-01 passes on k8s 1.26 and 1.30 for `tyk-oss`, `tyk-data-plane`, `tyk-stack`, with and without `--reuse-values` | 1 | ● | ◐ evidence complete, all four umbrellas both k8s versions — **held open only by the D-01 decision** |
+| 2 | TC-02 outcome documented, pinned-old-tag decision explicitly made | 1 → team | ● | ◐ evidence complete — **team decision owed** (§8 Q1) |
+| 3 | TC-03 reproduced by QA on a real, unprivileged OpenShift cluster | 2 | ● | **☑ CLOSED** — Sandbox 4.21.30, unprivileged |
+| 4 | TC-04 all four umbrellas; three values files **authored and TC-04 passing with them**; gap #9 resolved — see note | 1 + 2 | ● | **☑ CLOSED** — all four on ROSA, rc=0 each, zero patches |
+| 5 | TC-05 passes through a real ArgoCD instance, not just `helm template` | 2 | | **☑ CLOSED** — real ArgoCD, sync-wave ordering proven |
+| 6 | TC-06 incl. the `useSecretName` + literal `connectionString` upgrade regression | 1 + 2 | | **☑ CLOSED** — Owner 1 S1–5, Owner 2 S6 live |
+| 7 | TC-07 bootstrap verified **executing**, incl. an auth-requiring registry with a negative control | 2 | | **☑ CLOSED** — auth registry + negative control; raised D-13 |
+| 8 | TC-08 dev portal verified **running** with all three new config paths | 2 | | **☑ CLOSED** — portal running, PVC writes |
+| 9 | TC-09 green on merged `main`, **with the anti-vacuity revert check done** | 1 | | **☑ CLOSED** — 216/216, revert goes red |
+| 10 | TC-10 zero field leaks under **server-side** dry-run | 1 | | **☑ CLOSED** — 8/8 components, both k8s versions |
+| 11 | TC-11 green on k8s **1.26 and 1.30** (the ends; middle versions only if they disagree) | 1 | ● | **☑ CLOSED** — all six steps, both versions |
+| 12 | **Headline AC proven by QA** — four umbrellas installed on OpenShift with zero Kustomize patches on Tyk components, and the customer's three known patch categories confirmed unnecessary *(replaces TC-12)* | 2 | | **☑ CLOSED** — four umbrellas, zero Kustomize patches |
+| 13 | Upgrade release note reviewed and published in the 5.4.0 changelog | 1 | | ◐ draft written — **needs a home** (no CHANGELOG) |
+| 14 | OpenShift docs cover the `enabled: false` opt-out (and why `{}` doesn't work), the Redis/PostgreSQL caveat, and the per-component image-tag boundary | 1 + 2 | | ◐ both owners' inputs delivered — **write-up outstanding** |
 
 Rows 4, 6 and 14 are the shared ones — neither owner can close them alone.
 
@@ -149,6 +167,47 @@ Rows 4, 6 and 14 are the shared ones — neither owner can close them alone.
 >
 > **Rows 13 and 14 are release deliverables, not validation** — a changelog entry and docs. They gate
 > the release, not the evidence. Do them after the testing, and don't let them displace it.
+
+---
+
+## What's left — nothing here needs a cluster
+
+**All 12 test cases across both packets are complete.** The remaining work is decisions and writing.
+
+### Three decisions the team owes
+
+| # | Question | Evidence | Why it is blocking |
+|---|---|---|---|
+| **§8 Q3** | **D-01** — `helm upgrade --reuse-values` silently breaks the gateway's file writes. **Revert TT-17018, or fix forward before the 5.4.0 cut?** | [Owner 1](owner-1-results/README.md) | No admission failure, readiness probe passes, no warning events — it escapes every automated gate in the pipeline. Row 1 names both upgrade paths, so it cannot be signed off as-is. |
+| **§8 Q1** | **Pinned-old-tag upgrades** — release note only, or a `NOTES.txt` warning / `semverCompare` guard? | [Owner 1](owner-1-results/README.md) | Most likely support-ticket generator in 5.4.0. Recommendation on file: ship the note with the `--reuse-values` hazard and the tag bands added, and a `NOTES.txt` warning for the silent case only. |
+| **NEW** | **D-13** — the documented `preDelete.command` neutralisation cannot execute and **hangs `helm uninstall`**. Fix the docs, ship a shell in the image, or add a real `preDelete.enabled: false`? | [Owner 2](owner-2-results/README.md) | The GitOps path is this ticket's headline use case, `preDelete.command` exists to serve it, and its only documented usage is impossible. |
+
+### Two pieces of writing
+
+| # | Item | Owner | State |
+|---|---|---|---|
+| **Row 13** | Upgrade release note | 1 + repo owner | **Draft written**, covering D-01 and D-05. Blocked only on *where it goes* — `tyk-charts` has no CHANGELOG. Suggestion: the GitHub Release body, which exists and needs no new process. ~15 min once decided. |
+| **Row 14** | OpenShift docs | 1 + 2 | Both owners' inputs delivered. Needs: the `enabled: false` opt-out and why `{}` is a silent no-op; the image-tag bands (D-05); the Redis/PostgreSQL story (D-06), now fully characterised by Owner 2's S6 work. ~half a day. |
+
+### Worth ten minutes at the review
+
+**D-02, D-11 and D-14 are the same defect three times** — a values key or a piece of documented advice
+that looks correct and silently does nothing:
+
+- **D-02** — the operator's `podSecurityContext` is dead; `managerPodSecurityContext` is live
+- **D-11** — `preDelete.annotations` is documented with an ArgoCD example, in a case where the Job cannot render (and the component chart says so, while both umbrellas contradict it 3× each)
+- **D-14** — `bootstrapJob.imagePullSecrets` is dead; the chart-root `imagePullSecrets` is live
+
+One conversation about the pattern is worth more than three tickets.
+
+### Accepted residual risk — state it explicitly at sign-off
+
+| Not covered | Assessment |
+|---|---|
+| **Multi-AZ ROSA** | TC-04 and TC-05 ran on **real ROSA** — the customer's actual platform, materially stronger than the SNO the plan assumed — but **single-AZ**. Everything in scope is node-count-independent. The row should read *"real ROSA, single-AZ"*, not be marked retired. |
+| **The customer's ArgoCD + Kustomize overlays** | TC-05 proves the chart syncs through a real ArgoCD instance with correct sync-wave ordering. It cannot prove anything about overlays we do not have. The larger of the two gaps. |
+| **The 24 → N patch-count delta** | Tyk components provably need **zero** patches. The customer's arithmetic needs their overlays. The AC is answered; the number is not. |
+
 
 ---
 

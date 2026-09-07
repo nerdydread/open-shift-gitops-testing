@@ -1,0 +1,20 @@
+########## TT-17018 · Owner 2 · TC-03 session · 2026-09-07T18:41:28Z ##########
+
+########## S5 PRIVILEGE GATE — must pass BEFORE any probe ##########
+oc whoami                        -> trapgeek
+server                           -> https://api.rm2.thpm.p1.openshiftapps.com:6443
+project                          -> trapgeek-dev
+
+oc auth can-i use scc/anyuid     -> Warning: resource 'securitycontextconstraints' is not namespace scoped in group 'security.openshift.io'
+
+no   (MUST be: no)
+oc auth can-i use scc/privileged -> Warning: resource 'securitycontextconstraints' is not namespace scoped in group 'security.openshift.io'
+
+no   (MUST be: no)
+oc auth can-i '*' '*'            -> no   (MUST be: no)
+
+UID range annotation             -> 1009560000/10000
+supplemental-groups annotation   -> 1009560000/10000
+
+=> allowed UID band: 1009560000 .. 1009569999
+=> oc client: 4.22.11  server: 4.21.30
