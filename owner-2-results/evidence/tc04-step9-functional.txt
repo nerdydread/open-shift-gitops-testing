@@ -1,0 +1,48 @@
+  [tyk-qa] GET /hello -> HTTP 200
+        {"status": "ok"}
+  [tyk-stack] GET /hello -> HTTP 200
+        {"status": "ok"}
+  [tyk-oss] gateway /hello -> HTTP 200
+  [tyk-oss] POST /tyk/apis -> HTTP 200  {"key":"qaoss","status":"ok","action":"added"}
+  [tyk-oss] PROXIED request through /qaoss/ -> HTTP 200
+        body: {"status":"pass","version":"5.13.1","description":"Tyk GW","details":{"redis":{"status":"pass","componentType":"datastore","time":"2026-09-07T21:50:31Z"}}}
+  [tyk-oss] => FUNCTIONAL PASS (gateway proxied traffic)
+  [tyk-qa] gateway /hello -> HTTP 200
+  [tyk-qa] POST /tyk/apis -> HTTP 500  {"status":"error","message":"Due to enabled use_db_app_configs, please use the Dashboard API"}
+  [tyk-qa] PROXIED request through /qacp/ -> HTTP 404
+  [tyk-qa] => proxy returned 404 — investigate
+  [tyk-stack] gateway /hello -> HTTP 200
+  [tyk-stack] POST /tyk/apis -> HTTP 500  {"status":"error","message":"Due to enabled use_db_app_configs, please use the Dashboard API"}
+  [tyk-stack] PROXIED request through /qastack/ -> HTTP 404
+  [tyk-stack] => proxy returned 404 — investigate
+  [tyk-dp] gateway /hello -> HTTP 200
+  [tyk-dp] /hello body: {"status":"pass","version":"5.13.1","description":"Tyk GW","details":{"redis":{"status":"pass","componentType":"datastore","time":"2026-09-07T21:50:50Z"},"rpc":{"status":"pass","componentType":"system
+  [tyk-dp] RPC state from logs:
+        time="2026-09-07T20:08:51Z" level=info msg="--> Connected to DB"
+        time="2026-09-07T20:08:51Z" level=info msg="Storing RPC Definitions backup"
+        time="2026-09-07T20:08:51Z" level=info msg="--> Connected to DB"
+        time="2026-09-07T20:08:51Z" level=info msg="Detected 0 APIs" prefix=main
+portal-tyk-tyk-dev-portal-0                   1/1   Running     0     95m
+  tyk-control-plane: 6 pods, 0 not Running/Completed
+  tyk-stack: 5 pods, 0 not Running/Completed
+  tyk-data-plane: 3 pods, 0 not Running/Completed
+  tyk-oss: 3 pods, 0 not Running/Completed
+  [tyk-qa] POST dashboard /api/apis -> HTTP 200  {"Status":"OK","Message":"API created","Meta":"6a9f31e0d8bd490001b219c9","ID":"qacp2"}
+  [tyk-qa] PROXIED request through /qacp2/ -> HTTP 200
+        body: {"status":"pass","version":"5.13.1","description":"Tyk GW","details":{"dashboard":{"status":"pass","componentType":"system","time":"2026-09-07T21:51:3
+  [tyk-qa] => FUNCTIONAL PASS (dashboard-created API served by the gateway)
+  [tyk-stack] POST dashboard /api/apis -> HTTP 200  {"Status":"OK","Message":"API created","Meta":"6a9f31eed421c40001eca9fc","ID":"qastack2"}
+  [tyk-stack] PROXIED request through /qastack2/ -> HTTP 200
+        body: {"status":"pass","version":"5.13.1","description":"Tyk GW","details":{"dashboard":{"status":"pass","componentType":"system","time":"2026-09-07T21:51:4
+  [tyk-stack] => FUNCTIONAL PASS (dashboard-created API served by the gateway)
+  [tyk-dp] RPC / API detection after the CP gained an API:
+        time="2026-09-07T21:52:16Z" level=info msg="Detected 1 APIs" prefix=main
+        time="2026-09-07T21:52:17Z" level=info msg="--> Connected to DB"
+        time="2026-09-07T21:52:17Z" level=info msg="Storing RPC Definitions backup"
+        time="2026-09-07T21:52:17Z" level=info msg="--> Connected to DB"
+        time="2026-09-07T21:52:17Z" level=info msg="Detected 1 APIs" prefix=main
+  [tyk-dp] gateway /hello -> HTTP 200
+  [tyk-dp] rpc component health: {"status": "pass", "componentType": "system", "time": "2026-09-07T21:52:36Z"}
+  [tyk-dp] PROXIED the CONTROL-PLANE's API through the data plane -> HTTP 200
+        body: {"status":"pass","version":"5.13.1","description":"Tyk GW","details":{"dashboard":{"status":"pass","componentType":"system","time"
+  [tyk-dp] => FUNCTIONAL PASS (MDCB propagated the API; data plane served it)

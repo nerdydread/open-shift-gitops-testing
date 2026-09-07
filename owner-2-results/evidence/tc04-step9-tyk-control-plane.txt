@@ -1,6 +1,6 @@
-dashboard-tyk-tyk-dashboard-64fb57d75f-b9kvx   1/1   Running   0     28s
-gateway-tyk-tyk-gateway-687db8998b-bl7ck       1/1   Running   0     28s
-mdcb-tyk-tyk-mdcb-bd57f8db7-c2ws7              1/1   Running   0     28s
-pump-tyk-tyk-pump-548cf8d577-fqjzz             1/1   Running   0     28s
-redis-master-0                                 1/1   Running   0     2m42s
-tyk-postgres-postgresql-0                      1/1   Running   0     65s
+dashboard-tyk-tyk-dashboard-64fb57d75f-b9kvx   1/1   Running   0     106m
+gateway-tyk-tyk-gateway-687db8998b-bl7ck       1/1   Running   0     106m
+mdcb-tyk-tyk-mdcb-bd57f8db7-c2ws7              1/1   Running   0     106m
+pump-tyk-tyk-pump-548cf8d577-fqjzz             1/1   Running   0     106m
+redis-master-0                                 1/1   Running   0     108m
+tyk-postgres-postgresql-0                      1/1   Running   0     107m

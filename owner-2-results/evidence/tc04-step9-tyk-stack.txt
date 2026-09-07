@@ -1,5 +1,5 @@
-dashboard-tyk-tyk-dashboard-64d6768b44-c2j65   1/1   Running   0     28s
-gateway-tyk-tyk-gateway-595846b594-sbmhz       1/1   Running   0     28s
-pump-tyk-tyk-pump-6657d9ddcc-dh5wl             1/1   Running   0     28s
-redis-master-0                                 1/1   Running   0     94s
-tyk-postgres-postgresql-0                      1/1   Running   0     58s
+dashboard-tyk-tyk-dashboard-64d6768b44-c2j65   1/1   Running   0     104m
+gateway-tyk-tyk-gateway-595846b594-sbmhz       1/1   Running   0     104m
+pump-tyk-tyk-pump-6657d9ddcc-dh5wl             1/1   Running   0     104m
+redis-master-0                                 1/1   Running   0     105m
+tyk-postgres-postgresql-0                      1/1   Running   0     105m
