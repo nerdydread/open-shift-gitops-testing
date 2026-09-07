@@ -1,16 +1,75 @@
 # TT-17018 — QA workstreams (2 owners)
 
-> ## ✅ Status: 2026-09-07 — **all QA testing complete. 10 of 14 sign-off rows closed.**
->
-> Both owners tested `39957f3660212154296b6ffc9ab733f822e6809d`.
-> **Nothing outstanding requires a cluster, a licence, or QA time** — the four open rows need
-> three decisions and two pieces of writing. See **[What's left](#whats-left--nothing-here-needs-a-cluster)**.
->
-> Results: [`owner-1-results/`](owner-1-results/README.md) · [`owner-2-results/`](owner-2-results/README.md)
->
-> *The planning content below is preserved as written for the record — the calendar, effort estimates
-> and day-0 checklist describe the plan going in, not what happened. Owner 2's five-day packet
-> completed in one day, because most of its budget was discovery that turned out to be render work.*
+**In plain terms:** Tyk ships its API gateway as Helm charts. Those charts used to force specific
+Linux user IDs onto every container. Red Hat OpenShift refuses to run containers that do that — it
+insists on assigning its own IDs — so a customer had to hand-write **24 patch files** to make Tyk
+deploy at all. The fix under test makes every one of those settings optional. **The question this QA
+pass had to answer: with the fix, does Tyk install and run on OpenShift with no patches at all?**
+
+**The answer is yes**, proven on the customer's own platform. The change is cleared to ship once
+three open questions get decided — none of which needs more testing.
+
+---
+
+## Status at a glance
+
+| | |
+|---|---|
+| **Testing** | ✅ **Complete.** All 12 test cases, both workstreams. Nothing further needs a cluster, a licence, or QA time |
+| **Sign-off checklist** | **10 of 14 items closed.** The 4 open items need decisions and documentation, not testing |
+| **The headline question** | ✅ **Answered — zero patches needed.** All four product configurations installed and served live traffic on OpenShift |
+| **Blocking the release** | **One defect (D-01)** needs a revert-or-fix decision. Everything else is documentation |
+| **Cost still running** | A test cluster is live at ~$1–2/hour until someone tears it down — see [What's left](#whats-left--nothing-here-needs-a-cluster) |
+
+**Tested against:** `TykTechnologies/tyk-charts` @ `39957f3660212154296b6ffc9ab733f822e6809d` — both
+owners used the same code, so their results combine.
+**Evidence:** [`owner-1-results/`](owner-1-results/README.md) (local clusters, rendering, upgrades) ·
+[`owner-2-results/`](owner-2-results/README.md) (OpenShift)
+
+---
+
+## What was proven
+
+| Question | Answer | Where |
+|---|---|---|
+| Does the fix actually let OpenShift assign its own user IDs? | **Yes.** OpenShift rejects the old settings and accepts the new ones, filling in valid IDs itself | Owner 2, TC-03 |
+| Do all four product configurations install on OpenShift with **no patches**? | **Yes.** 17 containers, every one accepted under OpenShift's strictest security policy | Owner 2, TC-04 |
+| Do they actually *work*, or just start? | **They work.** All four served live API traffic, including the control-plane/data-plane pair talking to each other | Owner 2, TC-04 Step 9 |
+| Does it work through GitOps tooling (ArgoCD), which is how the customer deploys? | **Yes**, with the correct start-up ordering, proven against a real ArgoCD instance | Owner 2, TC-05 |
+| Do existing users on plain Kubernetes still work after upgrading? | **Yes** — with one important exception, see D-01 below | Owner 1, TC-01 / TC-11 |
+| Does the automated test suite actually catch regressions, or does it just look green? | **It catches them** — deliberately breaking the code turns the suite red | Owner 1, TC-09 |
+
+**Three things had never been tested by anything, anywhere, before this pass:** the set-up jobs
+actually running; the security opt-out being *installed* rather than only previewed; and pulling
+images from a password-protected registry. All three now pass.
+
+---
+
+## What is outstanding
+
+**No testing remains.** Four items, none of which QA can close alone.
+
+| # | What | Who decides | Effort |
+|---|---|---|---|
+| 1 | **D-01 — the one release blocker.** A common upgrade command silently breaks the gateway's ability to write files. Nothing errors, health checks pass, no warnings appear — it slips past every automated check. **Revert the change, or patch around it before 5.4.0?** | Engineering + product | one meeting |
+| 2 | **Old pinned image versions.** Customers who pinned an older image break on upgrade. Release note, install-time warning, or a guard in the chart? | Engineering + product | same meeting |
+| 3 | **D-13 — broken uninstall instructions.** The docs tell GitOps users how to stop Tyk deleting their data on uninstall. That instruction cannot work, and following it makes uninstall hang. **Becomes moot if item 1 is a revert** | Engineering | same meeting |
+| 4 | **Documentation.** A release note (written, needs a home — the repo has no changelog) and OpenShift docs (research done, needs writing) | Owner 1 + docs | ~half a day |
+
+**Take items 1–3 in that order** — deciding to revert removes item 3 entirely.
+
+> **State this explicitly at sign-off:** testing ran on **real ROSA — the customer's actual platform**,
+> which is stronger evidence than the plan assumed, but on a **single availability zone**, not
+> multi-region. Nothing tested depends on node count, so exposure is low — but say it rather than let
+> someone assume multi-region was covered. Separately: we proved *Tyk's* components need zero patches;
+> we cannot say what happens to the customer's own 24 patch files, because we do not have them.
+
+---
+
+*Everything below is the original planning material, preserved as written. The calendar, effort
+estimates and day-0 checklist describe the plan going in, not what happened — Owner 2's five-day
+workstream finished in one day, because most of that budget was investigation that turned out to be
+answerable without a cluster.*
 
 Companion to `TT-17018-test-plan.md`. That document is the authority
 on *what* and *why*. This directory splits it into **two packets** that two people can own and run
