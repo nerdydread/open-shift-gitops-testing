@@ -139,7 +139,7 @@ Evidence: [`owner-1-results/`](owner-1-results/README.md) (kind & render) ·
 | 1 | TC-01 passes on k8s 1.26 and 1.30 for `tyk-oss`, `tyk-data-plane`, `tyk-stack`, with and without `--reuse-values` | 1 | ● | ◐ evidence complete, all four umbrellas both k8s versions — **held open only by the D-01 decision** |
 | 2 | TC-02 outcome documented, pinned-old-tag decision explicitly made | 1 → team | ● | ◐ evidence complete — **team decision owed** (§8 Q1) |
 | 3 | TC-03 reproduced by QA on a real, unprivileged OpenShift cluster | 2 | ● | **☑ CLOSED** — Sandbox 4.21.30, unprivileged |
-| 4 | TC-04 all four umbrellas; three values files **authored and TC-04 passing with them**; gap #9 resolved — see note | 1 + 2 | ● | **☑ CLOSED** — all four on ROSA, rc=0 each, zero patches |
+| 4 | TC-04 all four umbrellas; three values files **authored and TC-04 passing with them**; gap #9 resolved — see note | 1 + 2 | ● | **☑ CLOSED** — all four on ROSA, rc=0 each, zero patches, all four serving traffic |
 | 5 | TC-05 passes through a real ArgoCD instance, not just `helm template` | 2 | | **☑ CLOSED** — real ArgoCD, sync-wave ordering proven |
 | 6 | TC-06 incl. the `useSecretName` + literal `connectionString` upgrade regression | 1 + 2 | | **☑ CLOSED** — Owner 1 S1–5, Owner 2 S6 live |
 | 7 | TC-07 bootstrap verified **executing**, incl. an auth-requiring registry with a negative control | 2 | | **☑ CLOSED** — auth registry + negative control; raised D-13 |

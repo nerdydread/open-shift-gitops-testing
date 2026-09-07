@@ -24,7 +24,7 @@ SHA Owner 1 tested, so the two evidence sets aggregate
 | §6 row | Item | Verdict |
 |---|---|---|
 | 3 | TC-03 reproduced on a real, unprivileged OpenShift cluster | **PASS — CLOSED** |
-| 4 | TC-04 all four umbrellas with the opt-out files | **PASS — CLOSED** |
+| 4 | TC-04 all four umbrellas with the opt-out files | **PASS — CLOSED**, incl. Step 9 functional smoke (all four serve traffic) |
 | 5 | TC-05 through a real ArgoCD instance | **PASS — CLOSED** |
 | 6 | TC-06 incl. the connection-string secret (Step 6) | **PASS — CLOSED** (Owner 1 owns Steps 1–5) |
 | 7 | TC-07 bootstrap executing, auth registry + negative control | **PASS — CLOSED**, raising D-13 |
@@ -689,3 +689,39 @@ the key is dead. It is not.
 §6 row 7 asks for "bootstrap verified **executing**, incl. an auth-requiring registry with a negative
 control". Both are now evidenced. D-13 is a defect *found by* that verification, not an obstacle to
 it — it belongs in the release decision, not in this row's status.
+# TC-04 Step 9 — functional smoke, completed 2026-09-07 21:50 UTC
+
+**This was initially under-evidenced and is corrected here.** The first pass recorded only pod
+readiness. The packet is explicit that this is not enough — *"admission and function are different
+claims"* — and requires the dashboard HTTP response, the proxied API response, and portal Ready.
+
+| Umbrella | Dashboard | API created via | Proxied request | Verdict |
+|---|---|---|---|---|
+| `tyk-oss` | n/a | gateway admin API → `HTTP 200 {"action":"added"}` | **`HTTP 200`** | **PASS** |
+| `tyk-control-plane` | `GET /hello` → **200** `{"status":"ok"}` | Dashboard API → `HTTP 200 "API created"` | **`HTTP 200`** | **PASS** |
+| `tyk-stack` | `GET /hello` → **200** `{"status":"ok"}` | Dashboard API → `HTTP 200 "API created"` | **`HTTP 200`** | **PASS** |
+| `tyk-data-plane` | n/a (RPC) | *created on the control plane* | **`HTTP 200`** | **PASS** |
+| dev portal (`tyk-portal`) | — | — | — | `portal-tyk-tyk-dev-portal-0  1/1 Running` |
+
+Two details worth keeping:
+
+**The dashboard-managed gateways correctly refuse direct API creation.** Posting to the gateway's own
+`/tyk/apis` returns `HTTP 500 "Due to enabled use_db_app_configs, please use the Dashboard API"`. That
+is right behaviour, not a defect — but a smoke test that only uses the gateway admin API will report a
+false failure on `tyk-stack` and `tyk-control-plane`. Create through the Dashboard API for those two.
+
+**The data-plane leg proves the whole MDCB chain, which is stronger than the step asks for.** An API
+created on the *control plane* propagated over RPC and was served by the *data plane*:
+
+```
+[tyk-dp] "Detected 1 APIs" prefix=main          <- was "Detected 0 APIs" before the CP had one
+[tyk-dp] rpc component health: {"status": "pass", ...}
+[tyk-dp] PROXIED the control-plane's API through the data plane -> HTTP 200
+```
+
+That is the customer's actual topology — control plane and data plane, joined by MDCB — working end
+to end on OpenShift under `restricted-v2` with every securityContext opted out.
+
+**Also corrected:** the original `step9-tyk-oss.txt` capture was taken 10 seconds into the install and
+recorded the gateway as `0/1 PodInitializing`. All four readiness files were re-captured after the
+installs settled; every umbrella now shows **0 pods not Running/Completed**.
