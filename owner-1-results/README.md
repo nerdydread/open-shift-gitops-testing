@@ -279,8 +279,8 @@ Corrections to the packet's own table:
 
 The repo already carries a good upgrade note (`tyk-stack/README.md` "Upgrade notes", mirrored per
 component). It documents the failure string, both failing image classes, which default tags changed, how
-to check an image's USER, and the `enabled: false` opt-out with the full irregular-key table. Two
-additions are needed:
+to check an image's USER, and the `enabled: false` opt-out with the full irregular-key table. Three
+additions are needed — the third added by Owner 2 after the ROSA run established the per-chart split:
 
 > **Do not use `helm upgrade --reuse-values` for this upgrade.** `--reuse-values` carries your previous
 > release's `containerSecurityContext.runAsUser` (`1000` on charts ≤ 5.3.0) forward, while the
@@ -292,6 +292,17 @@ additions are needed:
 > `Failed to create file! - open /mnt/tyk-gateway/apps/<id>.json: permission denied` in the log.
 > Use `--reset-then-reuse-values` (Helm ≥ 3.14) or pass your overrides explicitly. If you have already
 > upgraded this way, `helm upgrade --reset-then-reuse-values` repairs it with no further changes.
+
+> **How badly this bites depends on the chart — but every chart ends up in the same broken state.**
+> On **`tyk-oss`** the failure is immediate and obvious: API definitions are stored as files in
+> `/mnt/tyk-gateway/apps`, so the very next API create or update returns the `HTTP 500` above.
+> On **`tyk-stack`**, **`tyk-control-plane`** and **`tyk-data-plane`** the same mismatched UIDs are
+> present, but API definitions live in the dashboard database, so ordinary traffic never touches that
+> volume and **nothing surfaces** — pods are Ready, requests proxy normally, and the install looks
+> healthy. The likely trigger there is anything that writes to the volume at runtime, plugin bundle
+> downloads into `/mnt/tyk-gateway/middleware` being the obvious one. **Apply the repair regardless of
+> which chart you run** — a latent mismatch is still a mismatch, and it will surface at whatever moment
+> the gateway first needs to write.
 
 > **The gateway's image `USER` is not monotonic across versions.** `v5.8.13`–`v5.8.15` and `v5.13.0`+ ship
 > `USER 65532`; **`v5.9.0` through `v5.12.0` ship `USER 0`**. Re-pinning to a "newer" tag in that band
